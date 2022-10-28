@@ -1,16 +1,10 @@
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Container } from "@mui/material";
+import Navigation from "../components/Commom/Navigation";
 
 function Main() {
   return (
     <>
+      <Navigation />
       <Container maxWidth="sm"></Container>
     </>
   );
