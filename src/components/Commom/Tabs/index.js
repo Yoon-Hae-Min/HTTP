@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
+import StudentCard from "../../Student/StudentTable";
 
 const TabPanel = (props) => {
   const { children, value, index = 1, ...other } = props;
@@ -41,7 +42,7 @@ const SubjectTabs = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={1}>
-        Item One
+        <StudentCard />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Two

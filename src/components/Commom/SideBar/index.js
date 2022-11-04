@@ -11,10 +11,8 @@ import {
   ListItemText,
 } from "@mui/material";
 import React from "react";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import GradeIcon from "@mui/icons-material/Grade";
 
 const drawerWidth = 240;
