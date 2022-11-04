@@ -13,10 +13,14 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { visuallyHidden } from "@mui/utils";
 import TableCell from "@mui/material/TableCell";
+import { Fab } from "@mui/material";
+import StudentModal from "../StudentModal";
+import { useState } from "react";
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -175,50 +179,60 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const { numSelected } = props;
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const toggleModal = () => {
+    setModalOpen((pre) => !pre);
+  };
   return (
-    <Toolbar
-      style={{ backgroundColor: "#F2F2F2" }}
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          알고리즘
-        </Typography>
-      )}
+    <>
+      <StudentModal open={modalOpen} handleClose={toggleModal} />
+      <Toolbar
+        style={{ backgroundColor: "#F2F2F2" }}
+        sx={{
+          pl: { sm: 2 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            알고리즘
+          </Typography>
+        )}
 
-      {numSelected > 0 && (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
+        {numSelected > 0 ? (
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <IconButton onClick={toggleModal}>
+            <AddIcon fontSize="large" />
           </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
+        )}
+      </Toolbar>
+    </>
   );
 }
 
@@ -269,24 +283,11 @@ export default function StudentTable() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
