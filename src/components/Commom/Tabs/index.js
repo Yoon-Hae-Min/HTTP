@@ -35,9 +35,9 @@ const SubjectTabs = () => {
           aria-label="lab API tabs example"
           value={value}
         >
-          <Tab label="Item One" value={1} />
-          <Tab label="Item Two" value={2} />
-          <Tab label="Item Three" value={3} />
+          <Tab label="학생 목록" value={1} />
+          <Tab label="팀 편성" value={2} />
+          <Tab label="설정" value={3} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={1}>

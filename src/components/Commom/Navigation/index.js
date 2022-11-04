@@ -1,7 +1,17 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import SideBar from "../SideBar";
+import { useState } from "react";
 
 const Navigation = () => {
+  const [open, setOpen] = useState(false);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
@@ -13,13 +23,20 @@ const Navigation = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <MenuIcon onClick={handleDrawerOpen} />
           </IconButton>
-          <Typography variant="h6" color="inherit" component="div">
-            Happy The Team Project
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+            component="div"
+          >
+            HTTP(Happy The Team Project)
           </Typography>
         </Toolbar>
       </AppBar>
+      <SideBar open={open} handleDrawerClose={handleDrawerClose} />
     </Box>
   );
 };
