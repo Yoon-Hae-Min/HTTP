@@ -10,10 +10,12 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import GradeIcon from "@mui/icons-material/Grade";
+import { InfoContexts } from "../../../providers";
+import AddIcon from "@mui/icons-material/Add";
 
 const drawerWidth = 240;
 
@@ -24,6 +26,20 @@ const DrawerHeader = styled.div`
 `;
 
 const SideBar = ({ open, handleDrawerClose }) => {
+  const { subjectNames, setInfo } = useContext(InfoContexts);
+  const onClickSubject = (text) => {
+    setInfo((pre) => ({ ...pre, selectedSubject: text }));
+    handleDrawerClose();
+  };
+
+  const onClickAddSubject = () => {
+    setInfo((pre) => ({
+      ...pre,
+      subjectNames: [...pre.subjectNames, "과목명"],
+      selectedSubject: "과목명",
+    }));
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -48,8 +64,12 @@ const SideBar = ({ open, handleDrawerClose }) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["알고리즘", "데이터 베이스", "운영 체제"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {subjectNames.map((text) => (
+            <ListItem
+              key={text}
+              disablePadding
+              onClick={() => onClickSubject(text)}
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <GradeIcon />
@@ -58,6 +78,13 @@ const SideBar = ({ open, handleDrawerClose }) => {
               </ListItemButton>
             </ListItem>
           ))}
+          <ListItem style={{ justifyContent: "center" }}>
+            <ListItemIcon>
+              <ListItemButton onClick={onClickAddSubject}>
+                <AddIcon />
+              </ListItemButton>
+            </ListItemIcon>
+          </ListItem>
         </List>
       </Drawer>
     </Box>
