@@ -1,6 +1,8 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import StudentCard from "../../Student/StudentTable";
+import TeamCard from "../../StudentTeam/TeamCard";
+import TeamCardGrid from "../../StudentTeam/TeamCardGrid";
 
 const TabPanel = (props) => {
   const { children, value, index = 1, ...other } = props;
@@ -45,7 +47,12 @@ const SubjectTabs = () => {
         <StudentCard />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Two
+        <TeamCardGrid>
+          <TeamCard />
+          <TeamCard />
+          <TeamCard />
+          <TeamCard />
+        </TeamCardGrid>
       </TabPanel>
       <TabPanel value={value} index={3}>
         Item Three
