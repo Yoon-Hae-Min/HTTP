@@ -1,5 +1,7 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
+import SettingSubject from "../../Setting/SettingSubject";
+import SettingWeightTable from "../../Setting/SettingWeightTable";
 import StudentCard from "../../Student/StudentTable";
 import TeamCard from "../../StudentTeam/TeamCard";
 import TeamCardGrid from "../../StudentTeam/TeamCardGrid";
@@ -55,7 +57,8 @@ const SubjectTabs = () => {
         </TeamCardGrid>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Three
+        <SettingSubject />
+        <SettingWeightTable />
       </TabPanel>
     </Box>
   );
