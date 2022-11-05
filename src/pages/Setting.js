@@ -1,3 +1,4 @@
+import { Alert, Popover, Snackbar } from "@mui/material";
 import produce from "immer";
 import React, { useContext } from "react";
 import { useState } from "react";
@@ -13,7 +14,12 @@ const Setting = () => {
     numberOfTeams: subjects[selectedSubject].numberOfTeams,
     numberOfPeoplePerTeam: subjects[selectedSubject].numberOfPeoplePerTeam,
   });
+  const [openSnackBar, setOpenSnackBar] = useState();
   const [weights, setWeights] = useState(subjects[selectedSubject].weights);
+
+  const toggleSnackBar = () => {
+    setOpenSnackBar((pre) => !pre);
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -27,10 +33,18 @@ const Setting = () => {
         draft.subjects[draft.selectedSubject].weights = weights;
       });
     });
+    toggleSnackBar();
   };
 
   return (
     <form onSubmit={onSubmit}>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={5000}
+        onClose={toggleSnackBar}
+        message="저장되었습니다."
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      />
       <SettingSubject
         subjectInfo={subjectInfo}
         setSubjectInfo={setSubjectInfo}
