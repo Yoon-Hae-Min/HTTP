@@ -16,6 +16,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import GradeIcon from "@mui/icons-material/Grade";
 import { InfoContexts } from "../../../providers";
 import AddIcon from "@mui/icons-material/Add";
+import produce from "immer";
 
 const drawerWidth = 240;
 
@@ -26,18 +27,31 @@ const DrawerHeader = styled.div`
 `;
 
 const SideBar = ({ open, handleDrawerClose }) => {
-  const { subjectNames, setInfo } = useContext(InfoContexts);
-  const onClickSubject = (text) => {
-    setInfo((pre) => ({ ...pre, selectedSubject: text }));
+  const { subjects, setInfo } = useContext(InfoContexts);
+
+  const onClickSubject = (index) => {
+    setInfo((pre) => {
+      return produce(pre, (draft) => {
+        draft.selectedSubject = index;
+      });
+    });
     handleDrawerClose();
   };
 
   const onClickAddSubject = () => {
-    setInfo((pre) => ({
-      ...pre,
-      subjectNames: [...pre.subjectNames, "과목명"],
-      selectedSubject: "과목명",
-    }));
+    setInfo((pre) => {
+      return produce(pre, (draft) => {
+        draft.selectedSubject = subjects.length;
+        draft.subjects.push({
+          name: "새로운 과목",
+          numberOfTeams: 0,
+          numberOfPeoplePerTeam: 0,
+          students: [],
+          weights: [],
+          teams: [],
+        });
+      });
+    });
   };
 
   return (
@@ -64,17 +78,17 @@ const SideBar = ({ open, handleDrawerClose }) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {subjectNames.map((text) => (
+          {subjects.map((subject, index) => (
             <ListItem
-              key={text}
+              key={subject.name}
               disablePadding
-              onClick={() => onClickSubject(text)}
+              onClick={() => onClickSubject(index)}
             >
               <ListItemButton>
                 <ListItemIcon>
                   <GradeIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={subject.name} />
               </ListItemButton>
             </ListItem>
           ))}

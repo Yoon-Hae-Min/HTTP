@@ -4,8 +4,45 @@ export const InfoContexts = createContext();
 
 const Providers = ({ children }) => {
   const [Info, setInfo] = useState({
-    subjectNames: ["알고리즘", "데이터 베이스"],
-    selectedSubject: "알고리즘",
+    subjects: [
+      {
+        name: "알고리즘",
+        numberOfTeams: 0,
+        numberOfPeoplePerTeam: 0,
+        students: [
+          {
+            name: "홍길동",
+            weights: [
+              {
+                name: "가중치1",
+                value: 10,
+              },
+            ],
+          },
+        ],
+        weights: [
+          {
+            name: "가중치1",
+            value: 10,
+          },
+        ],
+        teams: [],
+      },
+      {
+        name: "데이터 베이스",
+        numberOfTeams: 0,
+        numberOfPeoplePerTeam: 0,
+        students: [],
+        weights: [
+          {
+            name: "가중치1",
+            value: 10,
+          },
+        ],
+        teams: [],
+      },
+    ],
+    selectedSubject: 0,
   });
 
   return (
