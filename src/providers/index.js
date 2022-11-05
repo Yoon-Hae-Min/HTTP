@@ -13,14 +13,17 @@ const Providers = ({ children }) => {
           {
             name: "홍길동",
             id: "20101010",
-            grades: [
-              {
-                grade: "A+",
-              },
-              {
-                grade: "B+",
-              },
-            ],
+            grades: ["A+", "B+"],
+          },
+          {
+            name: "홍길동",
+            id: "20101010",
+            grades: ["A+", "B+"],
+          },
+          {
+            name: "홍길동",
+            id: "20101010",
+            grades: ["A+", "B+", "B+", "B+"],
           },
         ],
         weights: [

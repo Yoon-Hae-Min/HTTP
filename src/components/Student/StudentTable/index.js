@@ -16,7 +16,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 import StudentRating from "../../../utils/studentRating";
 import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 
 function Row(props) {
   const { weights, student } = props;
@@ -24,11 +24,9 @@ function Row(props) {
   const studentWeight = [
     ...weights.map((weight, index) => ({
       ...weight,
-      ...student.grades[index],
+      grade: student.grades[index],
     })),
   ];
-  console.log(studentWeight);
-
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -44,6 +42,11 @@ function Row(props) {
         <TableCell>{student.name}</TableCell>
         <TableCell align="right">{student.id}</TableCell>
         <TableCell align="right">{StudentRating(studentWeight)}</TableCell>
+        <TableCell align="right" sx={{ width: "40px" }}>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -94,6 +97,7 @@ export default function StudentTable({ studentData, weightData }) {
               <TableCell>이름</TableCell>
               <TableCell align="right">학번</TableCell>
               <TableCell align="right">가중치 합계</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,13 +107,6 @@ export default function StudentTable({ studentData, weightData }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Fab
-        color="primary"
-        aria-label="add"
-        sx={{ position: "absolute", right: 50, bottom: 50 }}
-      >
-        <AddIcon />
-      </Fab>
     </>
   );
 }

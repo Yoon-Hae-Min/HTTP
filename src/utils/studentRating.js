@@ -15,7 +15,7 @@ export default function StudentRating(score) {
     else if (score[i].grade === "D+") originalscore = 1.5;
     else if (score[i].grade === "D") originalscore = 1.0;
     else if (score[i].grade === "F") originalscore = 0;
-    else continue;
+    else originalscore = 0;
     insertedNum += 1;
     Sum += originalscore * score[i].value;
   }
