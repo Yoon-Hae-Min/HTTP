@@ -8,8 +8,8 @@ const Input = styled.input`
   padding: 5px;
   margin: 5px;
 `;
-const SettingWeightTableInput = ({ placeholder }) => {
-  return <Input placeholder={placeholder} />;
+const SettingWeightTableInput = ({ placeholder, ...props }) => {
+  return <Input placeholder={placeholder} {...props} />;
 };
 
 export default SettingWeightTableInput;

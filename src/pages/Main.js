@@ -6,12 +6,13 @@ import TabTitle from "../components/Commom/TabTitle";
 import { InfoContexts } from "../providers";
 
 function Main() {
-  const { selectedSubject } = useContext(InfoContexts);
+  const { subjects, selectedSubject } = useContext(InfoContexts);
+  console.log(subjects);
   return (
     <>
       <Navigation />
       <Container maxWidth="lg">
-        <TabTitle>{selectedSubject}</TabTitle>
+        <TabTitle>{subjects[selectedSubject].name}</TabTitle>
         <SubjectTabs></SubjectTabs>
       </Container>
     </>
