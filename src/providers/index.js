@@ -15,7 +15,23 @@ const Providers = ({ children }) => {
             weights: [
               {
                 name: "가중치1",
-                value: 10,
+                weightRate: 10,
+                grade: "A+",
+              },
+              {
+                name: "가중치1",
+                weightRate: 10,
+                grade: "A+",
+              },
+              {
+                name: "가중치1",
+                weightRate: 10,
+                grade: "A+",
+              },
+              {
+                name: "가중치1",
+                weightRate: 10,
+                grade: "A+",
               },
             ],
           },

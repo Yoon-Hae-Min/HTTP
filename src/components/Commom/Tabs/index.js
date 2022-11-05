@@ -6,6 +6,7 @@ import StudentTable from "../../Student/StudentTable";
 import TeamCard from "../../StudentTeam/TeamCard";
 import TeamCardGrid from "../../StudentTeam/TeamCardGrid";
 import Setting from "../../../pages/Setting";
+import StudentList from "../../../pages/StudentList";
 
 const TabPanel = (props) => {
   const { children, value, index = 1, ...other } = props;
@@ -47,7 +48,7 @@ const SubjectTabs = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={1}>
-        <StudentTable />
+        <StudentList />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <TeamCardGrid>
