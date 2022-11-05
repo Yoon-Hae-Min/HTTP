@@ -12,31 +12,30 @@ const Providers = ({ children }) => {
         students: [
           {
             name: "홍길동",
-            weights: [
+            id: "20101010",
+            grades: [
               {
-                name: "가중치1",
-                weightRate: 10,
                 grade: "A+",
               },
               {
-                name: "가중치1",
-                weightRate: 10,
-                grade: "A+",
-              },
-              {
-                name: "가중치1",
-                weightRate: 10,
-                grade: "A+",
-              },
-              {
-                name: "가중치1",
-                weightRate: 10,
-                grade: "A+",
+                grade: "B+",
               },
             ],
           },
         ],
         weights: [
+          {
+            name: "가중치1",
+            value: 10,
+          },
+          {
+            name: "가중치1",
+            value: 10,
+          },
+          {
+            name: "가중치1",
+            value: 10,
+          },
           {
             name: "가중치1",
             value: 10,

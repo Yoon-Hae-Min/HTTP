@@ -4,6 +4,7 @@ export default function StudentRating(score) {
   let originalscore = 0;
   let Sum = 0;
   let finalScore = 0;
+  let insertedNum = 0;
   for (let i = 0; i < score.length; i++) {
     if (score[i].grade === "A+") originalscore = 4.5;
     else if (score[i].grade === "A") originalscore = 4.0;
@@ -14,10 +15,10 @@ export default function StudentRating(score) {
     else if (score[i].grade === "D+") originalscore = 1.5;
     else if (score[i].grade === "D") originalscore = 1.0;
     else if (score[i].grade === "F") originalscore = 0;
-
-    Sum += originalscore * score[i].weightRate;
+    else continue;
+    insertedNum += 1;
+    Sum += originalscore * score[i].value;
   }
-
-  finalScore = Sum / score.length;
+  finalScore = Sum / insertedNum;
   return finalScore;
 }

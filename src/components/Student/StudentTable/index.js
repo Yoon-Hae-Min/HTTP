@@ -15,10 +15,19 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 import StudentRating from "../../../utils/studentRating";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 function Row(props) {
-  const { row } = props;
+  const { weights, student } = props;
   const [open, setOpen] = useState(false);
+  const studentWeight = [
+    ...weights.map((weight, index) => ({
+      ...weight,
+      ...student.grades[index],
+    })),
+  ];
+  console.log(studentWeight);
 
   return (
     <React.Fragment>
@@ -32,9 +41,9 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{row.name}</TableCell>
-        <TableCell align="right">{row.id}</TableCell>
-        <TableCell align="right">{StudentRating(row.weights)}</TableCell>
+        <TableCell>{student.name}</TableCell>
+        <TableCell align="right">{student.id}</TableCell>
+        <TableCell align="right">{StudentRating(studentWeight)}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -57,11 +66,11 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.weights.map((weight) => (
+                  {studentWeight.map((weight) => (
                     <TableRow key={weight.name}>
                       <TableCell>{weight.name}</TableCell>
                       <TableCell>{weight.grade}</TableCell>
-                      <TableCell>{weight.weightRate}</TableCell>
+                      <TableCell>{weight.value}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -74,53 +83,33 @@ function Row(props) {
   );
 }
 
-const rows = [
-  {
-    name: "홍길동",
-    id: "20101010",
-    weights: [
-      {
-        name: "가중치1",
-        weightRate: 10,
-        grade: "A+",
-      },
-      {
-        name: "가중치1",
-        weightRate: 10,
-        grade: "A+",
-      },
-      {
-        name: "가중치1",
-        weightRate: 10,
-        grade: "A+",
-      },
-      {
-        name: "가중치1",
-        weightRate: 10,
-        grade: "A+",
-      },
-    ],
-  },
-];
-
-export default function StudentTable() {
+export default function StudentTable({ studentData, weightData }) {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>이름</TableCell>
-            <TableCell align="right">학번</TableCell>
-            <TableCell align="right">가중치 합계</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.id} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>이름</TableCell>
+              <TableCell align="right">학번</TableCell>
+              <TableCell align="right">가중치 합계</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {studentData.map((student) => (
+              <Row key={student.id} student={student} weights={weightData} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Fab
+        color="primary"
+        aria-label="add"
+        sx={{ position: "absolute", right: 50, bottom: 50 }}
+      >
+        <AddIcon />
+      </Fab>
+    </>
   );
 }
