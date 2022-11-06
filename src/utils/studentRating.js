@@ -5,6 +5,7 @@ export default function StudentRating(score) {
   let Sum = 0;
   let finalScore = 0;
   let insertedNum = 0;
+
   for (let i = 0; i < score.length; i++) {
     if (score[i].grade === "A+") originalscore = 4.5;
     else if (score[i].grade === "A") originalscore = 4.0;
@@ -20,5 +21,6 @@ export default function StudentRating(score) {
     Sum += originalscore * score[i].value;
   }
   finalScore = Sum / insertedNum;
+  console.log(finalScore);
   return finalScore;
 }

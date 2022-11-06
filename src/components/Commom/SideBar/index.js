@@ -16,7 +16,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import GradeIcon from "@mui/icons-material/Grade";
 import { InfoContexts } from "../../../providers";
 import AddIcon from "@mui/icons-material/Add";
-import produce from "immer";
 
 const drawerWidth = 240;
 
@@ -27,31 +26,15 @@ const DrawerHeader = styled.div`
 `;
 
 const SideBar = ({ open, handleDrawerClose }) => {
-  const { subjects, setInfo } = useContext(InfoContexts);
+  const { subjects, dispatch } = useContext(InfoContexts);
 
   const onClickSubject = (index) => {
-    setInfo((pre) => {
-      return produce(pre, (draft) => {
-        draft.selectedSubject = index;
-      });
-    });
+    dispatch({ type: "CHANGE_SUBJECT", subject: index });
     handleDrawerClose();
   };
 
   const onClickAddSubject = () => {
-    setInfo((pre) => {
-      return produce(pre, (draft) => {
-        draft.selectedSubject = subjects.length;
-        draft.subjects.push({
-          name: "새로운 과목",
-          numberOfTeams: 0,
-          numberOfPeoplePerTeam: 0,
-          students: [],
-          weights: [],
-          teams: [],
-        });
-      });
-    });
+    dispatch({ type: "CREATE_NEW_SUBJECT" });
   };
 
   return (

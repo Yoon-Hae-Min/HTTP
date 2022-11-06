@@ -5,20 +5,15 @@ import StudentModal from "../components/Student/StudentModal";
 import StudentTable from "../components/Student/StudentTable";
 import { InfoContexts } from "../providers";
 import AddIcon from "@mui/icons-material/Add";
+import useToggleState from "../hooks/useToggleState";
 
 const StudentList = () => {
   const { subjects, selectedSubject } = useContext(InfoContexts);
-  const [open, setOpen] = useState(false);
-  const toggleModal = () => {
-    setOpen((pre) => !pre);
-  };
+  const [open, , toggleModal] = useToggleState();
   return (
     <>
       <StudentModal open={open} handleClose={toggleModal} />
-      <StudentTable
-        studentData={subjects[selectedSubject].students}
-        weightData={subjects[selectedSubject].weights}
-      />
+      <StudentTable studentData={subjects[selectedSubject].students} />
       <Fab
         color="primary"
         aria-label="add"

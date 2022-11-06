@@ -12,10 +12,11 @@ import produce from "immer";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { InfoContexts } from "../../../providers";
+import StudentRating from "../../../utils/StudentRating";
 import WeightInput from "./WeightInput";
 
 const StudentModal = ({ open, handleClose }) => {
-  const { subjects, selectedSubject, setInfo } = useContext(InfoContexts);
+  const { subjects, selectedSubject, dispatch } = useContext(InfoContexts);
   const [student, setStudent] = useState({
     name: "",
     id: "",
@@ -30,16 +31,6 @@ const StudentModal = ({ open, handleClose }) => {
     });
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setInfo((pre) => {
-      return produce(pre, (draft) => {
-        draft.subjects[selectedSubject].students.push(student);
-      });
-    });
-    handleClose();
-  };
-
   const onChangeText = (event) => {
     setStudent((pre) => {
       return produce(pre, (draft) => {
@@ -47,6 +38,24 @@ const StudentModal = ({ open, handleClose }) => {
       });
     });
   };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const gradesAndWeight = [];
+    student.grades.map((grade, index) => {
+      return gradesAndWeight.push({
+        grade: grade,
+        value: subjects[selectedSubject].weights[index].value,
+      });
+    });
+    const formattedStudent = {
+      ...student,
+      sumWeight: StudentRating(gradesAndWeight),
+    };
+    dispatch({ type: "CREATE_NEW_STUDENT", student: formattedStudent });
+    handleClose();
+  };
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box

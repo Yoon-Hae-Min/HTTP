@@ -14,19 +14,15 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
-import StudentRating from "../../../utils/studentRating";
+import StudentRating from "../../../utils/StudentRating";
 import { Fab } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import useStudentWeights from "../../../hooks/useStudentWeights";
 
 function Row(props) {
-  const { weights, student } = props;
+  const { student } = props;
   const [open, setOpen] = useState(false);
-  const studentWeight = [
-    ...weights.map((weight, index) => ({
-      ...weight,
-      grade: student.grades[index],
-    })),
-  ];
+  const studentWeight = useStudentWeights(student);
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -40,8 +36,8 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell>{student.name}</TableCell>
-        <TableCell align="right">{student.id}</TableCell>
-        <TableCell align="right">{StudentRating(studentWeight)}</TableCell>
+        <TableCell align="right">{student.studentId}</TableCell>
+        <TableCell align="right">{student.sumWeight}</TableCell>
         <TableCell align="right" sx={{ width: "40px" }}>
           <IconButton>
             <EditIcon />
@@ -86,7 +82,7 @@ function Row(props) {
   );
 }
 
-export default function StudentTable({ studentData, weightData }) {
+export default function StudentTable({ studentData }) {
   return (
     <>
       <TableContainer component={Paper}>
@@ -102,7 +98,7 @@ export default function StudentTable({ studentData, weightData }) {
           </TableHead>
           <TableBody>
             {studentData.map((student) => (
-              <Row key={student.id} student={student} weights={weightData} />
+              <Row key={student.id} student={student} />
             ))}
           </TableBody>
         </Table>

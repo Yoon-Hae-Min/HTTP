@@ -1,70 +1,14 @@
-import React, { useState, createContext } from "react";
+import React, { createContext } from "react";
+import { useReducer } from "react";
+import reducer, { initialState } from "../reducers/reducers";
 
 export const InfoContexts = createContext();
 
 const Providers = ({ children }) => {
-  const [Info, setInfo] = useState({
-    subjects: [
-      {
-        name: "알고리즘",
-        numberOfTeams: 0,
-        numberOfPeoplePerTeam: 0,
-        students: [
-          {
-            name: "홍길동",
-            id: "20101010",
-            grades: ["A+", "B+"],
-          },
-          {
-            name: "홍길동",
-            id: "20101010",
-            grades: ["A+", "B+"],
-          },
-          {
-            name: "홍길동",
-            id: "20101010",
-            grades: ["A+", "B+", "B+", "B+"],
-          },
-        ],
-        weights: [
-          {
-            name: "가중치1",
-            value: 10,
-          },
-          {
-            name: "가중치1",
-            value: 10,
-          },
-          {
-            name: "가중치1",
-            value: 10,
-          },
-          {
-            name: "가중치1",
-            value: 10,
-          },
-        ],
-        teams: [],
-      },
-      {
-        name: "데이터 베이스",
-        numberOfTeams: 0,
-        numberOfPeoplePerTeam: 0,
-        students: [],
-        weights: [
-          {
-            name: "가중치1",
-            value: 10,
-          },
-        ],
-        teams: [],
-      },
-    ],
-    selectedSubject: 0,
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <InfoContexts.Provider value={{ ...Info, setInfo }}>
+    <InfoContexts.Provider value={{ ...state, dispatch }}>
       {children}
     </InfoContexts.Provider>
   );
