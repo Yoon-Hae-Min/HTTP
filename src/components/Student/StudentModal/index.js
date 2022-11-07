@@ -20,6 +20,15 @@ const StudentModal = ({ open, handleClose, edit }) => {
   const { subjects, selectedSubject, dispatch } = useContext(InfoContexts);
   const [student, setStudent] = useState(initialState);
 
+  const onClickDelete = () => {
+    dispatch({
+      type: "DELETE_STUDENT",
+      index: edit.index - 1,
+    });
+    console.log(subjects[selectedSubject].students);
+    handleClose();
+  };
+
   const onSubmitEdit = (isEdit) => {
     if (isEdit) {
       return (event) => {
@@ -114,6 +123,7 @@ const StudentModal = ({ open, handleClose, edit }) => {
               type="button"
               color="error"
               sx={{ justifyContent: "center" }}
+              onClick={onClickDelete}
             >
               삭제하기
             </Button>

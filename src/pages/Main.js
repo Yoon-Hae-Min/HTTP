@@ -7,7 +7,6 @@ import { InfoContexts } from "../providers";
 
 function Main() {
   const { subjects, selectedSubject } = useContext(InfoContexts);
-  console.log(subjects);
   return (
     <>
       <Navigation />

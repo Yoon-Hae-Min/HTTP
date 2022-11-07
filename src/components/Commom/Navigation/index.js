@@ -30,10 +30,10 @@ const Navigation = () => {
             variant="h6"
             color="inherit"
             noWrap
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, fontWeight: "bold" }}
             component="div"
           >
-            HTTP(Happy The Team Project)
+            HTTP
           </Typography>
         </Toolbar>
       </AppBar>

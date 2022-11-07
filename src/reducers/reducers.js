@@ -74,6 +74,10 @@ const reducer = (state, action) => {
         draft.subjects[draft.selectedSubject].students[action.index] =
           action.student;
       });
+    case "DELETE_STUDENT":
+      return produce(state, (draft) => {
+        draft.subjects[draft.selectedSubject].students.splice(action.index, 1);
+      });
     case "CREATE_NEW_SUBJECT":
       return produce(state, (draft) => {
         draft.selectedSubject = draft.subjects.length;
