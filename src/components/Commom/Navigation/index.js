@@ -22,8 +22,9 @@ const Navigation = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={handleDrawerOpen}
           >
-            <MenuIcon onClick={handleDrawerOpen} />
+            <MenuIcon />
           </IconButton>
           <Typography
             variant="h6"

@@ -1,27 +1,28 @@
 import produce from "immer";
+import GradesCombineWeights from "../utils/GradesCombineWeights";
+import StudentRating from "../utils/StudentRating";
 
 export const initialState = {
   subjects: [
     {
       name: "알고리즘",
       numberOfTeams: 3,
-      numberOfPeoplePerTeam: 0,
       students: [
         {
           name: "홍길동",
-          studentId: "20101010",
+          studentId: "20101110",
           grades: ["A+", "B+", "A+", "B+"],
           sumWeight: 20,
         },
         {
-          name: "홍길동",
-          studentId: "20101010",
+          name: "김길동",
+          studentId: "20101011",
           grades: ["A+", "B+", "A+", "B+"],
           sumWeight: 20,
         },
         {
-          name: "홍길동",
-          studentId: "20101010",
+          name: "이길동",
+          studentId: "20111010",
           grades: ["A+", "B+", "B+", "B+"],
           sumWeight: 37.5,
         },
@@ -32,15 +33,15 @@ export const initialState = {
           value: 10,
         },
         {
-          name: "가중치1",
+          name: "가중치2",
           value: 10,
         },
         {
-          name: "가중치1",
+          name: "가중치3",
           value: 10,
         },
         {
-          name: "가중치1",
+          name: "가중치4",
           value: 10,
         },
       ],
@@ -49,7 +50,6 @@ export const initialState = {
     {
       name: "데이터 베이스",
       numberOfTeams: 0,
-      numberOfPeoplePerTeam: 0,
       students: [],
       weights: [
         {
@@ -68,6 +68,11 @@ const reducer = (state, action) => {
     case "CREATE_NEW_STUDENT":
       return produce(state, (draft) => {
         draft.subjects[draft.selectedSubject].students.push(action.student);
+      });
+    case "CHANGE_STUDENT":
+      return produce(state, (draft) => {
+        draft.subjects[draft.selectedSubject].students[action.index] =
+          action.student;
       });
     case "CREATE_NEW_SUBJECT":
       return produce(state, (draft) => {
@@ -97,6 +102,17 @@ const reducer = (state, action) => {
         draft.subjects[draft.selectedSubject].numberOfPeoplePerTeam =
           action.subjectInfo.numberOfPeoplePerTeam;
         draft.subjects[draft.selectedSubject].weights = action.weights;
+      });
+    case "CALCULATE_STUDENTS_WEIGHTS":
+      return produce(state, (draft) => {
+        draft.subjects[draft.selectedSubject].students.map((student) => {
+          return (student.sumWeight = StudentRating(
+            GradesCombineWeights(
+              student,
+              draft.subjects[draft.selectedSubject].weights
+            )
+          ));
+        });
       });
     default:
       throw new Error("Doesn't have action type");

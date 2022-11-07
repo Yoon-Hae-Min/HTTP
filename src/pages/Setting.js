@@ -13,7 +13,6 @@ const Setting = () => {
   const [subjectInfo, setSubjectInfo] = useState({
     name: subjects[selectedSubject].name,
     numberOfTeams: subjects[selectedSubject].numberOfTeams,
-    numberOfPeoplePerTeam: subjects[selectedSubject].numberOfPeoplePerTeam,
   });
   const [weights, setWeights] = useState(subjects[selectedSubject].weights);
 
@@ -26,6 +25,7 @@ const Setting = () => {
       subjectInfo: subjectInfo,
       weights: weights,
     });
+    dispatch({ type: "CALCULATE_STUDENTS_WEIGHTS" });
     toggleSnackBar();
   };
 
