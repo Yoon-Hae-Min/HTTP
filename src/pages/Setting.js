@@ -1,6 +1,7 @@
 import { Alert, Popover, Snackbar } from "@mui/material";
 import produce from "immer";
 import React, { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import SettingSubject from "../components/Setting/SettingSubject";
 import SettingWeightTable from "../components/Setting/SettingWeightTable";
@@ -28,6 +29,14 @@ const Setting = () => {
     dispatch({ type: "CALCULATE_STUDENTS_WEIGHTS" });
     toggleSnackBar();
   };
+
+  useEffect(() => {
+    setSubjectInfo({
+      name: subjects[selectedSubject].name,
+      numberOfTeams: subjects[selectedSubject].numberOfTeams,
+    });
+    setWeights(subjects[selectedSubject].weights);
+  }, [selectedSubject, subjects]);
 
   return (
     <form onSubmit={onSubmit}>
