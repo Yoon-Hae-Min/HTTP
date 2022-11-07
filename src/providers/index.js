@@ -9,7 +9,8 @@ const Providers = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(state));
+    state.isSynchronization &&
+      localStorage.setItem("data", JSON.stringify(state));
   }, [state]);
   return (
     <InfoContexts.Provider value={{ ...state, dispatch }}>

@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, TextField } from "@mui/material";
+import { Divider, Grid, TextField } from "@mui/material";
 import produce from "immer";
 import React from "react";
 
@@ -13,11 +13,6 @@ const SettingSubject = ({ subjectInfo, setSubjectInfo }) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "end" }}>
-        <Button variant="contained" type="submit">
-          저장하기
-        </Button>
-      </div>
       <Grid container marginBottom="70px" marginTop="5px" spacing={4}>
         <Grid item lg={6}>
           <TextField

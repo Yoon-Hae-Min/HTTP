@@ -122,7 +122,7 @@ const StudentModal = ({ open, handleClose, edit }) => {
           <Button
             variant="contained"
             type="submit"
-            sx={{ justifyContent: "center" }}
+            sx={{ justifyContent: "center", marginRight: "30px" }}
           >
             저장하기
           </Button>
