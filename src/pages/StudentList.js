@@ -37,7 +37,7 @@ const StudentList = () => {
       <Fab
         color="primary"
         aria-label="add"
-        sx={{ position: "absolute", right: 50, bottom: 50 }}
+        sx={{ position: "fixed", right: 50, bottom: 50 }}
         onClick={toggleModal}
       >
         <AddIcon />
