@@ -21,7 +21,13 @@ const StudentTeam = () => {
       data: JSON.parse(JSON.stringify(subjects[selectedSubject].students)), // 깊은복사를 해야한다 getTeams에서 불변성이 깨지기 때문에 state의 영향을 받아 student값이 지워지는 버그가 있었다.
     };
     const team = new getTeams(formatData);
-    const teams = team.getTeams();
+    const weights = team.getWeights();
+    const teams = team.getTeams().map((team, index) => {
+      return {
+        team: team,
+        sumWeight: weights[index],
+      };
+    });
     dispatch({ type: "CREATE_NEW_TEAMS", teams: teams });
   };
 

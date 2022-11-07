@@ -98,6 +98,9 @@ class Team {
     this.teamWeight += obj.sumWeight;
     this.NumOfMem++;
   }
+  getTeamWeight() {
+    return this.teamWeight;
+  }
 }
 
 //팀 최소힙 클래스
@@ -182,6 +185,10 @@ class MinHeap {
 class getTeams {
   constructor(StudentList) {
     this.StudentList = StudentList;
+    this.teamWeight = [];
+  }
+  getWeights() {
+    return this.teamWeight;
   }
   getTeams() {
     let teamlist = [];
@@ -202,6 +209,7 @@ class getTeams {
     for (let i = 0; i < teamCount; i++) {
       let team = new Team();
       team.addStudent(sortStudents.pop());
+      this.teamWeight.unshift(team.getTeamWeight());
       teamlist.unshift(team.team);
       TeamHeap.addTeam(team);
     }

@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, Grid } from "@mui/material";
 
 export default function TeamCard({ index, team }) {
   return (
@@ -15,22 +15,26 @@ export default function TeamCard({ index, team }) {
           sx={{ fontSize: 20, fontWeight: "bold" }}
           color="text.secondary"
         >
-          {index + 1}조
+          {index + 1}조 ({Math.floor(team.sumWeight)})
         </Typography>
         <List sx={{ width: "100%", maxWidth: 360 }}>
-          {team.map((student) => (
-            <>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar>{student.name[0]}</Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={student.name}
-                  secondary={student.studentId}
-                />
-              </ListItem>
-            </>
-          ))}
+          {team.team.map((student) => {
+            return (
+              <Grid container spacing={2}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar>{student.name[0]}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={`${student.name} (${Math.floor(
+                      student.sumWeight
+                    )})`}
+                    secondary={student.studentId}
+                  />
+                </ListItem>
+              </Grid>
+            );
+          })}
         </List>
       </CardContent>
     </Card>
