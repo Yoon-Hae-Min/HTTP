@@ -1,27 +1,55 @@
-import {
-  Button,
-  Divider,
-  List,
-  ListItem,
-  Modal,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Modal, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import produce from "immer";
 import React, { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { InfoContexts } from "../../../providers";
+import GradesCombineWeights from "../../../utils/GradesCombineWeights";
 import StudentRating from "../../../utils/StudentRating";
-import WeightInput from "./WeightInput";
+import StudentInfo from "./StudentInfo";
+import SubjectInfo from "./SubjectInfo";
 
-const StudentModal = ({ open, handleClose }) => {
+const StudentModal = ({ open, handleClose, editIndex }) => {
   const { subjects, selectedSubject, dispatch } = useContext(InfoContexts);
   const [student, setStudent] = useState({
     name: "",
     id: "",
     grades: [],
   });
+  const [isEdit, setIsEdit] = useState(false);
+
+  const onSubmitEdit = (isEdit) => {
+    if (isEdit) {
+      return (event) => {
+        event.preventDefault();
+        const formattedStudent = {
+          ...student,
+          sumWeight: StudentRating(
+            GradesCombineWeights(student, subjects[selectedSubject].weights)
+          ),
+        };
+        dispatch({
+          type: "CHANGE_STUDENT",
+          index: editIndex - 1,
+          student: formattedStudent,
+        });
+        handleClose();
+      };
+    } else {
+      return (event) => {
+        event.preventDefault();
+        const formattedStudent = {
+          ...student,
+          sumWeight: StudentRating(
+            GradesCombineWeights(student, subjects[selectedSubject].weights)
+          ),
+        };
+        dispatch({ type: "CREATE_NEW_STUDENT", student: formattedStudent });
+        handleClose();
+      };
+    }
+  };
 
   const onChangeSelect = (event, index) => {
     setStudent((pre) => {
@@ -39,23 +67,14 @@ const StudentModal = ({ open, handleClose }) => {
     });
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const gradesAndWeight = [];
-    student.grades.map((grade, index) => {
-      return gradesAndWeight.push({
-        grade: grade,
-        value: subjects[selectedSubject].weights[index].value,
-      });
-    });
-    const formattedStudent = {
-      ...student,
-      sumWeight: StudentRating(gradesAndWeight),
-    };
-    dispatch({ type: "CREATE_NEW_STUDENT", student: formattedStudent });
-    handleClose();
-  };
+  const onSubmit = onSubmitEdit(isEdit);
 
+  useEffect(() => {
+    if (editIndex) {
+      setStudent({ ...subjects[selectedSubject].students[editIndex - 1] });
+      setIsEdit(true);
+    }
+  }, [editIndex, selectedSubject, subjects]);
   return (
     <Modal open={open} onClose={handleClose}>
       <Box
@@ -74,65 +93,26 @@ const StudentModal = ({ open, handleClose }) => {
           학생추가
         </Typography>
         <form onSubmit={onSubmit}>
-          <TextField
-            id="outlined-basic"
-            label="이름"
-            name="name"
-            onChange={onChangeText}
-            variant="outlined"
-            sx={{ marginTop: "40px" }}
+          <StudentInfo onChangeText={onChangeText} student={student} />
+          <SubjectInfo
+            student={student}
+            currentSubject={subjects[selectedSubject]}
+            onChangeSelect={onChangeSelect}
           />
-          <TextField
-            id="outlined-basic"
-            label="학번"
-            name="id"
-            onChange={onChangeText}
-            variant="outlined"
-            sx={{ marginTop: "40px", marginLeft: "40px" }}
-          />
-          <List>
-            <ListItem>
-              <Typography
-                sx={{
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  width: "100%",
-                  margin: "10px",
-                }}
-                color="text.secondary"
-              >
-                과목
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  width: "100%",
-                  margin: "10px",
-                  float: "right",
-                }}
-                color="text.secondary"
-              >
-                성적
-              </Typography>
-            </ListItem>
-            <Divider />
-            {subjects[selectedSubject].weights.map((weight, index) => {
-              return (
-                <WeightInput
-                  weight={weight}
-                  value={student.grades[index]}
-                  onChange={(event) => onChangeSelect(event, index)}
-                />
-              );
-            })}
-          </List>
           <Button
             variant="contained"
             type="submit"
             sx={{ justifyContent: "center" }}
           >
             저장하기
+          </Button>
+          <Button
+            variant="contained"
+            type="button"
+            color="error"
+            sx={{ justifyContent: "center" }}
+          >
+            삭제하기
           </Button>
         </form>
       </Box>

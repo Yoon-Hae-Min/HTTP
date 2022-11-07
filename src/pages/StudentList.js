@@ -10,10 +10,19 @@ import useToggleState from "../hooks/useToggleState";
 const StudentList = () => {
   const { subjects, selectedSubject } = useContext(InfoContexts);
   const [open, , toggleModal] = useToggleState();
+  const [editIndex, setEditIndex] = useState();
   return (
     <>
-      <StudentModal open={open} handleClose={toggleModal} />
-      <StudentTable studentData={subjects[selectedSubject].students} />
+      <StudentModal
+        open={open}
+        handleClose={toggleModal}
+        editIndex={editIndex}
+      />
+      <StudentTable
+        studentData={subjects[selectedSubject].students}
+        setEditIndex={setEditIndex}
+        toggleModal={toggleModal}
+      />
       <Fab
         color="primary"
         aria-label="add"

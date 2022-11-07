@@ -14,15 +14,20 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
-import StudentRating from "../../../utils/StudentRating";
-import { Fab } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import useStudentWeights from "../../../hooks/useStudentWeights";
 
 function Row(props) {
-  const { student } = props;
+  const { student, setEditIndex, index, toggleModal } = props;
   const [open, setOpen] = useState(false);
   const studentWeight = useStudentWeights(student);
+
+  const onClickEdit = () => {
+    console.log(index);
+    setEditIndex(index + 1);
+    toggleModal();
+  };
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -39,7 +44,7 @@ function Row(props) {
         <TableCell align="right">{student.studentId}</TableCell>
         <TableCell align="right">{student.sumWeight}</TableCell>
         <TableCell align="right" sx={{ width: "40px" }}>
-          <IconButton>
+          <IconButton onClick={onClickEdit}>
             <EditIcon />
           </IconButton>
         </TableCell>
@@ -65,13 +70,15 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {studentWeight.map((weight) => (
-                    <TableRow key={weight.name}>
-                      <TableCell>{weight.name}</TableCell>
-                      <TableCell>{weight.grade}</TableCell>
-                      <TableCell>{weight.value}</TableCell>
-                    </TableRow>
-                  ))}
+                  {studentWeight.map((weight) => {
+                    return (
+                      <TableRow key={`${student.studentId}+${weight.name}`}>
+                        <TableCell>{weight.name}</TableCell>
+                        <TableCell>{weight.grade}</TableCell>
+                        <TableCell>{weight.value}</TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </Box>
@@ -82,7 +89,11 @@ function Row(props) {
   );
 }
 
-export default function StudentTable({ studentData }) {
+export default function StudentTable({
+  studentData,
+  setEditIndex,
+  toggleModal,
+}) {
   return (
     <>
       <TableContainer component={Paper}>
@@ -97,8 +108,14 @@ export default function StudentTable({ studentData }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentData.map((student) => (
-              <Row key={student.id} student={student} />
+            {studentData.map((student, index) => (
+              <Row
+                key={student.studentId}
+                student={student}
+                index={index}
+                setEditIndex={setEditIndex}
+                toggleModal={toggleModal}
+              />
             ))}
           </TableBody>
         </Table>
