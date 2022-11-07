@@ -1,5 +1,5 @@
 import { Button, Grid } from "@mui/material";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import TeamCard from "../components/StudentTeam/TeamCard";
 import TeamCardGrid from "../components/StudentTeam/TeamCardGrid";
 import { InfoContexts } from "../providers";

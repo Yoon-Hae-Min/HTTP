@@ -1,7 +1,5 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
-import TeamCard from "../../StudentTeam/TeamCard";
-import TeamCardGrid from "../../StudentTeam/TeamCardGrid";
 import Setting from "../../../pages/Setting";
 import StudentList from "../../../pages/StudentList";
 import StudentTeam from "../../../pages/StudentTeam";

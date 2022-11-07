@@ -1,5 +1,5 @@
 import { Divider, ListItem, MenuItem, Select, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
 const WeightInput = ({ weight, value, onChange }) => {
   return (
