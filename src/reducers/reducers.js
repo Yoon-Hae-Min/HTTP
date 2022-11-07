@@ -2,66 +2,7 @@ import produce from "immer";
 import GradesCombineWeights from "../utils/GradesCombineWeights";
 import StudentRating from "../utils/StudentRating";
 
-export const initialState = {
-  subjects: [
-    {
-      name: "알고리즘",
-      numberOfTeams: 3,
-      students: [
-        {
-          name: "홍길동",
-          studentId: "20101110",
-          grades: ["A+", "B+", "A+", "B+"],
-          sumWeight: 20,
-        },
-        {
-          name: "김길동",
-          studentId: "20101011",
-          grades: ["A+", "B+", "A+", "B+"],
-          sumWeight: 20,
-        },
-        {
-          name: "이길동",
-          studentId: "20111010",
-          grades: ["A+", "B+", "B+", "B+"],
-          sumWeight: 37.5,
-        },
-      ],
-      weights: [
-        {
-          name: "가중치1",
-          value: 10,
-        },
-        {
-          name: "가중치2",
-          value: 10,
-        },
-        {
-          name: "가중치3",
-          value: 10,
-        },
-        {
-          name: "가중치4",
-          value: 10,
-        },
-      ],
-      teams: [],
-    },
-    {
-      name: "데이터 베이스",
-      numberOfTeams: 0,
-      students: [],
-      weights: [
-        {
-          name: "가중치1",
-          value: 10,
-        },
-      ],
-      teams: [],
-    },
-  ],
-  selectedSubject: 0,
-};
+export const initialState = JSON.parse(localStorage.getItem("data"));
 
 const reducer = (state, action) => {
   switch (action.type) {
