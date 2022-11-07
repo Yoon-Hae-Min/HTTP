@@ -7,8 +7,14 @@ import { ListItemButton, Typography } from "@mui/material";
 import SettingWeightTableInput from "../SettingWeightTableInput";
 import AddIcon from "@mui/icons-material/Add";
 import produce from "immer";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ClearIcon from "@mui/icons-material/Clear";
 
-export default function SettingWeightTable({ weights, setWeights }) {
+export default function SettingWeightTable({
+  weights,
+  setWeights,
+  setDeletedIndex,
+}) {
   const onChangeWeight = (event, index) => {
     setWeights((pre) => {
       return produce(pre, (draft) => {
@@ -26,6 +32,39 @@ export default function SettingWeightTable({ weights, setWeights }) {
       });
     });
   };
+
+  const onClickDelete = (event, index) => {
+    setWeights((pre) => {
+      return produce(pre, (draft) => {
+        draft.splice(index, 1);
+      });
+    });
+    setDeletedIndex((pre) => {
+      return produce(pre, (draft) => {
+        draft.push(index);
+      });
+    });
+  };
+  const onClickAllDelete = (event) => {
+    const result = window.confirm("모두 삭제 하시겠습니까?");
+    if (!result) {
+      return;
+    }
+    let lastIndex = 0;
+    setWeights((pre) => {
+      return produce(pre, (draft) => {
+        lastIndex = draft.length;
+        draft.splice(0);
+      });
+    });
+    const arr = Array.from({ length: lastIndex }, (v, i) => i);
+    setDeletedIndex((pre) => {
+      return produce(pre, (draft) => {
+        draft = arr;
+      });
+    });
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <List>
@@ -50,8 +89,14 @@ export default function SettingWeightTable({ weights, setWeights }) {
             }}
             color="text.secondary"
           >
-            가중치 비율(%)
+            가중치 수치
           </Typography>
+          <ListItemButton
+            sx={{ justifyContent: "center" }}
+            onClick={onClickAllDelete}
+          >
+            <ClearIcon />
+          </ListItemButton>
         </ListItem>
         <Divider />
         {weights.map((weight, index) => {
@@ -75,6 +120,12 @@ export default function SettingWeightTable({ weights, setWeights }) {
                   }}
                   value={weight.value}
                 />
+                <ListItemButton
+                  sx={{ justifyContent: "center" }}
+                  onClick={(event) => onClickDelete(event, index)}
+                >
+                  <DeleteIcon />
+                </ListItemButton>
               </ListItem>
               <Divider />
             </>

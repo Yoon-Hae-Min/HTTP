@@ -15,6 +15,7 @@ const Setting = () => {
     numberOfTeams: subjects[selectedSubject].numberOfTeams,
   });
   const [weights, setWeights] = useState(subjects[selectedSubject].weights);
+  const [deletedIndex, setDeletedIndex] = useState([]);
 
   const [openSnackBar, , toggleSnackBar] = useToggleState();
 
@@ -24,6 +25,7 @@ const Setting = () => {
       type: "CHANGE_SETTING",
       subjectInfo: subjectInfo,
       weights: weights,
+      deletedIndex: deletedIndex,
     });
     dispatch({ type: "CALCULATE_STUDENTS_WEIGHTS" });
     toggleSnackBar();
@@ -50,7 +52,11 @@ const Setting = () => {
         subjectInfo={subjectInfo}
         setSubjectInfo={setSubjectInfo}
       />
-      <SettingWeightTable weights={weights} setWeights={setWeights} />
+      <SettingWeightTable
+        weights={weights}
+        setWeights={setWeights}
+        setDeletedIndex={setDeletedIndex}
+      />
     </form>
   );
 };

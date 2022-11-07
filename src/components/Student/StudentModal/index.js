@@ -55,6 +55,7 @@ const StudentModal = ({ open, handleClose, edit }) => {
             GradesCombineWeights(student, subjects[selectedSubject].weights)
           ),
         };
+        console.log(formattedStudent);
         dispatch({ type: "CREATE_NEW_STUDENT", student: formattedStudent });
         handleClose();
       };
@@ -84,8 +85,16 @@ const StudentModal = ({ open, handleClose, edit }) => {
   }, [edit.index, edit.isEdit, selectedSubject, subjects]);
 
   useEffect(() => {
-    !edit.isEdit && setStudent(initialState);
-  }, [edit.isEdit]);
+    !edit.isEdit &&
+      setStudent({
+        name: "",
+        id: "",
+        grades: Array.from(
+          { length: subjects[selectedSubject].weights.length },
+          () => "B+"
+        ),
+      });
+  }, [edit.isEdit, selectedSubject, subjects]);
   return (
     <Modal open={open} onClose={handleClose}>
       <Box

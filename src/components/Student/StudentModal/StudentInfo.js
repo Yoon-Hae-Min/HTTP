@@ -15,7 +15,7 @@ const StudentInfo = ({ onChangeText, student }) => {
       <TextField
         id="outlined-basic"
         label="학번"
-        name="id"
+        name="studentId"
         onChange={onChangeText}
         value={student.studentId ?? ""}
         variant="outlined"
