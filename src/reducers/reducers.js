@@ -1,20 +1,23 @@
 import produce from "immer";
+import exportData from "../dummyData/dummyState";
 import GradesCombineWeights from "../utils/GradesCombineWeights";
 import StudentRating from "../utils/StudentRating";
 
-export const initialState = JSON.parse(localStorage.getItem("data")) ?? {
-  subjects: [
-    {
-      name: "과목명",
-      numberOfTeams: 0,
-      students: [],
-      weights: [],
-      teams: [],
-    },
-  ],
-  selectedSubject: 0,
-  isSynchronization: true,
-};
+export const initialState =
+  JSON.parse(localStorage.getItem("data")) ?? exportData;
+// {
+//   subjects: [
+//     {
+//       name: "과목명",
+//       numberOfTeams: 0,
+//       students: [],
+//       weights: [],
+//       teams: [],
+//     },
+//   ],
+//   selectedSubject: 0,
+//   isSynchronization: true,
+// };
 
 const reducer = (state, action) => {
   switch (action.type) {
