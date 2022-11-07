@@ -46,21 +46,6 @@ const SettingSubject = ({ subjectInfo, setSubjectInfo }) => {
             onChange={onChangeSubject}
           />
         </Grid>
-        <Grid item lg={6}>
-          <TextField
-            fullWidth
-            label="편성할 팀의 개수"
-            type="number"
-            inputProps={{
-              name: "numberOfPeoplePerTeam",
-              inputMode: "numeric",
-              pattern: "[0-9]*",
-            }}
-            variant="outlined"
-            value={subjectInfo.numberOfPeoplePerTeam}
-            onChange={onChangeSubject}
-          />
-        </Grid>
       </Grid>
       <Divider />
     </>

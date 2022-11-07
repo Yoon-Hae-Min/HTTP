@@ -18,7 +18,6 @@ const WeightInput = ({ weight, value, onChange }) => {
         </Typography>
 
         <Select
-          labelId="demo-simple-select-filled-label"
           id="demo-simple-select-filled"
           value={value}
           onChange={onChange}
