@@ -13,6 +13,7 @@ export const initialState = JSON.parse(localStorage.getItem("data")) ?? {
     },
   ],
   selectedSubject: 0,
+  isSynchronization: true,
 };
 
 const reducer = (state, action) => {
@@ -41,6 +42,11 @@ const reducer = (state, action) => {
           weights: [],
           teams: [],
         });
+      });
+    case "DELETE_SUBJECT":
+      return produce(state, (draft) => {
+        draft.subjects.splice(draft.selectedSubject, 1);
+        draft.selectedSubject = draft.subjects.length - 1;
       });
     case "CREATE_NEW_TEAMS":
       return produce(state, (draft) => {
@@ -77,6 +83,13 @@ const reducer = (state, action) => {
         draft.subjects[draft.selectedSubject].students.map((student) =>
           student.grades.splice(action.index, 1)
         );
+      });
+    case "TOGGLE_SYNCHRONIZATION":
+      return produce(state, (draft) => {
+        if (draft.isSynchronization) {
+          localStorage.removeItem("data");
+        }
+        draft.isSynchronization = !draft.isSynchronization;
       });
     default:
       throw new Error("Doesn't have action type");

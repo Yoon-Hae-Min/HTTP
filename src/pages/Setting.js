@@ -1,4 +1,4 @@
-import { Snackbar } from "@mui/material";
+import { Button, Snackbar } from "@mui/material";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -31,6 +31,10 @@ const Setting = () => {
     toggleSnackBar();
   };
 
+  const onClickDelete = () => {
+    dispatch({ type: "DELETE_SUBJECT" });
+  };
+
   useEffect(() => {
     setSubjectInfo({
       name: subjects[selectedSubject].name,
@@ -48,6 +52,16 @@ const Setting = () => {
         message="저장되었습니다."
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       />
+      <div style={{ display: "flex", justifyContent: "end" }}>
+        <Button variant="contained" type="submit" sx={{ marginRight: "30px" }}>
+          저장하기
+        </Button>
+        {subjects.length > 1 && (
+          <Button variant="contained" color="error" onClick={onClickDelete}>
+            과목 삭제하기
+          </Button>
+        )}
+      </div>
       <SettingSubject
         subjectInfo={subjectInfo}
         setSubjectInfo={setSubjectInfo}
