@@ -10,14 +10,15 @@ import StudentRating from "../../../utils/StudentRating";
 import StudentInfo from "./StudentInfo";
 import SubjectInfo from "./SubjectInfo";
 
-const StudentModal = ({ open, handleClose, editIndex }) => {
+const initialState = {
+  name: "",
+  id: "",
+  grades: [],
+};
+
+const StudentModal = ({ open, handleClose, edit }) => {
   const { subjects, selectedSubject, dispatch } = useContext(InfoContexts);
-  const [student, setStudent] = useState({
-    name: "",
-    id: "",
-    grades: [],
-  });
-  const [isEdit, setIsEdit] = useState(false);
+  const [student, setStudent] = useState(initialState);
 
   const onSubmitEdit = (isEdit) => {
     if (isEdit) {
@@ -31,7 +32,7 @@ const StudentModal = ({ open, handleClose, editIndex }) => {
         };
         dispatch({
           type: "CHANGE_STUDENT",
-          index: editIndex - 1,
+          index: edit.index - 1,
           student: formattedStudent,
         });
         handleClose();
@@ -50,6 +51,7 @@ const StudentModal = ({ open, handleClose, editIndex }) => {
       };
     }
   };
+  const onSubmit = onSubmitEdit(edit.isEdit);
 
   const onChangeSelect = (event, index) => {
     setStudent((pre) => {
@@ -66,15 +68,15 @@ const StudentModal = ({ open, handleClose, editIndex }) => {
       });
     });
   };
-
-  const onSubmit = onSubmitEdit(isEdit);
+  useEffect(() => {
+    if (edit.isEdit) {
+      setStudent({ ...subjects[selectedSubject].students[edit.index - 1] });
+    }
+  }, [edit.index, edit.isEdit, selectedSubject, subjects]);
 
   useEffect(() => {
-    if (editIndex) {
-      setStudent({ ...subjects[selectedSubject].students[editIndex - 1] });
-      setIsEdit(true);
-    }
-  }, [editIndex, selectedSubject, subjects]);
+    !edit.isEdit && setStudent(initialState);
+  }, [edit.isEdit]);
   return (
     <Modal open={open} onClose={handleClose}>
       <Box
@@ -106,14 +108,16 @@ const StudentModal = ({ open, handleClose, editIndex }) => {
           >
             저장하기
           </Button>
-          <Button
-            variant="contained"
-            type="button"
-            color="error"
-            sx={{ justifyContent: "center" }}
-          >
-            삭제하기
-          </Button>
+          {edit.isEdit && (
+            <Button
+              variant="contained"
+              type="button"
+              color="error"
+              sx={{ justifyContent: "center" }}
+            >
+              삭제하기
+            </Button>
+          )}
         </form>
       </Box>
     </Modal>

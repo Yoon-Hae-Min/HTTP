@@ -18,13 +18,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import useStudentWeights from "../../../hooks/useStudentWeights";
 
 function Row(props) {
-  const { student, setEditIndex, index, toggleModal } = props;
+  const { student, setEdit, index, toggleModal } = props;
   const [open, setOpen] = useState(false);
   const studentWeight = useStudentWeights(student);
 
   const onClickEdit = () => {
-    console.log(index);
-    setEditIndex(index + 1);
+    setEdit({ index: index + 1, isEdit: true });
     toggleModal();
   };
 
@@ -89,11 +88,7 @@ function Row(props) {
   );
 }
 
-export default function StudentTable({
-  studentData,
-  setEditIndex,
-  toggleModal,
-}) {
+export default function StudentTable({ studentData, setEdit, toggleModal }) {
   return (
     <>
       <TableContainer component={Paper}>
@@ -113,7 +108,7 @@ export default function StudentTable({
                 key={student.studentId}
                 student={student}
                 index={index}
-                setEditIndex={setEditIndex}
+                setEdit={setEdit}
                 toggleModal={toggleModal}
               />
             ))}
