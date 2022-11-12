@@ -15,7 +15,8 @@ import { useContext } from "react";
 import { InfoContexts } from "../../../providers";
 
 const Navigation = () => {
-  const { dispatch, isSynchronization } = useContext(InfoContexts);
+  const { dispatch, isSynchronization, setIsSynchronization } =
+    useContext(InfoContexts);
   const [open, setOpen] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -26,7 +27,11 @@ const Navigation = () => {
   };
 
   const toggleSync = () => {
-    dispatch({ type: "TOGGLE_SYNCHRONIZATION" });
+    dispatch({
+      type: "TOGGLE_SYNCHRONIZATION",
+    });
+    setIsSynchronization((pre) => !pre);
+    console.log(isSynchronization);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

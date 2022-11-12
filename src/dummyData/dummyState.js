@@ -144,7 +144,6 @@ const dummy = {
     },
   ],
   selectedSubject: 0,
-  isSynchronization: true,
 };
 
 dummy.subjects[0].students.map((student) => {

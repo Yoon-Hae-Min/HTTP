@@ -1,19 +1,25 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { useEffect } from "react";
 import { useReducer } from "react";
-import reducer, { initialState } from "../reducers/reducers";
+import reducer, {
+  initialState,
+  initialSynchronization,
+} from "../reducers/reducers";
 
 export const InfoContexts = createContext();
 
 const Providers = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const [isSynchronization, setIsSynchronization] = useState(
+    initialSynchronization
+  );
   useEffect(() => {
-    state.isSynchronization &&
-      localStorage.setItem("data", JSON.stringify(state));
-  }, [state]);
+    isSynchronization && localStorage.setItem("data", JSON.stringify(state));
+  }, [isSynchronization, state]);
   return (
-    <InfoContexts.Provider value={{ ...state, dispatch }}>
+    <InfoContexts.Provider
+      value={{ ...state, dispatch, isSynchronization, setIsSynchronization }}
+    >
       {children}
     </InfoContexts.Provider>
   );

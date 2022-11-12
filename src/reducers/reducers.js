@@ -5,6 +5,9 @@ import StudentRating from "../utils/StudentRating";
 
 export const initialState =
   JSON.parse(localStorage.getItem("data")) ?? exportData;
+
+export const initialSynchronization =
+  JSON.parse(localStorage.getItem("isSynchronization")) ?? true;
 // {
 //   subjects: [
 //     {
@@ -89,10 +92,12 @@ const reducer = (state, action) => {
       });
     case "TOGGLE_SYNCHRONIZATION":
       return produce(state, (draft) => {
-        if (draft.isSynchronization) {
+        if (localStorage.getItem("isSynchronization") === "true") {
           localStorage.removeItem("data");
+          localStorage.setItem("isSynchronization", false);
+        } else {
+          localStorage.setItem("isSynchronization", true);
         }
-        draft.isSynchronization = !draft.isSynchronization;
       });
     default:
       throw new Error("Doesn't have action type");
