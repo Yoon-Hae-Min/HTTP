@@ -29,7 +29,7 @@ const SettingSubject = ({ subjectInfo, setSubjectInfo }) => {
         <Grid item lg={6}>
           <TextField
             fullWidth
-            label="팀당 편성 인원"
+            label="생성할 팀의 수"
             variant="outlined"
             value={subjectInfo.numberOfTeams}
             type="number"

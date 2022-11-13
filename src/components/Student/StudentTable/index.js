@@ -94,7 +94,7 @@ export default function StudentTable({ studentData, setEdit, toggleModal }) {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell />
+              <TableCell>총 {studentData.length} 명</TableCell>
               <TableCell>이름</TableCell>
               <TableCell align="right">학번</TableCell>
               <TableCell align="right">가중치 합계</TableCell>
