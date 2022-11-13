@@ -32,7 +32,9 @@ const Setting = () => {
   };
 
   const onClickDelete = () => {
-    dispatch({ type: "DELETE_SUBJECT" });
+    if (window.confirm(`해당 과목을 삭제하시겠습니까?`)) {
+      dispatch({ type: "DELETE_SUBJECT" });
+    }
   };
 
   useEffect(() => {
