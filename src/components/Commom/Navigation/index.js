@@ -31,7 +31,6 @@ const Navigation = () => {
       type: "TOGGLE_SYNCHRONIZATION",
     });
     setIsSynchronization((pre) => !pre);
-    console.log(isSynchronization);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

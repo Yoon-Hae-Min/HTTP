@@ -25,7 +25,6 @@ const StudentModal = ({ open, handleClose, edit }) => {
       type: "DELETE_STUDENT",
       index: edit.index - 1,
     });
-    console.log(subjects[selectedSubject].students);
     handleClose();
   };
 
@@ -55,7 +54,6 @@ const StudentModal = ({ open, handleClose, edit }) => {
             GradesCombineWeights(student, subjects[selectedSubject].weights)
           ),
         };
-        console.log(formattedStudent);
         dispatch({ type: "CREATE_NEW_STUDENT", student: formattedStudent });
         handleClose();
       };

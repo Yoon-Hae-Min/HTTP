@@ -21,6 +21,5 @@ export default function StudentRating(score) {
     Sum += originalscore * score[i].value;
   }
   finalScore = Sum / insertedNum;
-  console.log(finalScore);
   return finalScore;
 }
