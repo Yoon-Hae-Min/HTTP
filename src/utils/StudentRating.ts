@@ -1,6 +1,6 @@
 //가중치를 더한 학생의 총 평점 구하기
 //score 배열에는 홀수 인덱스에 원래 점수, 짝수 인덱스에 가중치
-export default function StudentRating(score) {
+export default function StudentRating(score:CombinedWeight[]) {
   let originalscore = 0;
   let Sum = 0;
   let finalScore = 0;

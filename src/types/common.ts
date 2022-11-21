@@ -1,27 +1,32 @@
-interface Student{
-    grades:string[],
-    name:string,
-    studentId:string,
-    sumWeight:number,
+export interface Student {
+  grades: string[];
+  name: string;
+  studentId: string;
+  sumWeight?: number;
 }
 
-interface Team{
-    sumWeight:number,
-    members:Student[],
+export interface Team {
+  sumWeight: number;
+  members: Student[];
 }
-interface Weight{
-    name:string,
-    value:number,
+export interface Weight {
+  name: string;
+  value: number;
 }
-
-interface Subjects{
-    selectedSubject:number,
-    subjects:{
-        name:string,
-        numberOfTeams:number,
-        students:Student[],
-        teams:Team[],
-        weights:Weight[],
-    }
+export interface Subject {
+  name: string;
+  numberOfTeams: number;
+  students: Student[];
+  teams: Team[];
+  weights: Weight[];
 }
 
+export interface GlobalState {
+  selectedSubject: number;
+  subjects: Subject[];
+}
+
+export interface CombinedWeight {
+  grade: string;
+  value: number;
+}

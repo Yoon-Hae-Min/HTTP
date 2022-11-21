@@ -1,10 +1,8 @@
-interface Combined{
-  grade:string,
-  value:number,
-}
-
-const GradesCombineWeights = (student:Student, weights:Weight[]):Combined[] => {
-  const gradesAndWeight:Combined[] = [];
+const GradesCombineWeights = (
+  student: Student,
+  weights: Weight[]
+): CombinedWeight[] => {
+  const gradesAndWeight: CombinedWeight[] = [];
   student.grades.map((grade, index) => {
     return gradesAndWeight.push({
       grade: grade,

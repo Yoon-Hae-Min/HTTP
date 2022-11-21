@@ -2,7 +2,7 @@ import produce from "immer";
 import GradesCombineWeights from "../utils/GradesCombineWeights";
 import StudentRating from "../utils/StudentRating";
 
-const dummy = {
+const dummy:Subjects = {
   subjects: [
     {
       name: "알고리즘",
