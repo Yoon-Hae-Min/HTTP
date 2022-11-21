@@ -1,19 +1,16 @@
-import { Button, Grid } from "@mui/material";
-import React, { useContext } from "react";
-import TeamCard from "../components/StudentTeam/TeamCard";
-import TeamCardGrid from "../components/StudentTeam/TeamCardGrid";
-import { InfoContexts } from "../providers";
-import Grouping from "../utils/Grouping";
+import { Button, Grid } from '@mui/material';
+import React, { useContext } from 'react';
+import TeamCard from '../components/StudentTeam/TeamCard';
+import TeamCardGrid from '../components/StudentTeam/TeamCardGrid';
+import { InfoContexts } from '../providers';
+import Grouping from '../utils/Grouping';
 
 const StudentTeam = () => {
   const { subjects, selectedSubject, dispatch } = useContext(InfoContexts);
 
   const onClickMakeTeam = () => {
-    if (
-      subjects[selectedSubject].numberOfTeams >
-      subjects[selectedSubject].students.length
-    ) {
-      alert("학생 수 보다 편성인원이 많습니다.");
+    if (subjects[selectedSubject].numberOfTeams > subjects[selectedSubject].students.length) {
+      alert('학생 수 보다 편성인원이 많습니다.');
       return;
     }
     const formatData = {
@@ -23,11 +20,11 @@ const StudentTeam = () => {
     const team = new Grouping(formatData);
     const teams = team.getTeams().map((team) => {
       return {
-        team: team[1],
+        member: team[1],
         sumWeight: team[0],
       };
     });
-    dispatch({ type: "CREATE_NEW_TEAMS", teams: teams });
+    dispatch({ type: 'CREATE_NEW_TEAMS', teams: teams });
   };
 
   return (
