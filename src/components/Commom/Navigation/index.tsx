@@ -1,22 +1,21 @@
+import React from 'react';
 import {
   AppBar,
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
   Toolbar,
   Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import SideBar from "../SideBar";
-import { useState } from "react";
-import { useContext } from "react";
-import { InfoContexts } from "../../../providers";
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import SideBar from '../SideBar';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { InfoContext } from '../../../providers';
 
 const Navigation = () => {
-  const { dispatch, isSynchronization, setIsSynchronization } =
-    useContext(InfoContexts);
+  const { dispatch, isSynchronization, setIsSynchronization } = useContext(InfoContext);
   const [open, setOpen] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -28,7 +27,7 @@ const Navigation = () => {
 
   const toggleSync = () => {
     dispatch({
-      type: "TOGGLE_SYNCHRONIZATION",
+      type: 'TOGGLE_SYNCHRONIZATION',
     });
     setIsSynchronization((pre) => !pre);
   };
@@ -50,7 +49,7 @@ const Navigation = () => {
             variant="h6"
             color="inherit"
             noWrap
-            sx={{ flexGrow: 1, fontWeight: "bold" }}
+            sx={{ flexGrow: 1, fontWeight: 'bold' }}
             component="div"
           >
             HTTP
@@ -60,7 +59,7 @@ const Navigation = () => {
               <Checkbox
                 checked={isSynchronization}
                 onChange={toggleSync}
-                inputProps={{ "aria-label": "controlled" }}
+                inputProps={{ 'aria-label': 'controlled' }}
               />
             }
             label="동기화 사용"

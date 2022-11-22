@@ -9,13 +9,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
-import React, { useContext } from "react";
-import styled from "styled-components";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import GradeIcon from "@mui/icons-material/Grade";
-import { InfoContexts } from "../../../providers";
-import AddIcon from "@mui/icons-material/Add";
+} from '@mui/material';
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import GradeIcon from '@mui/icons-material/Grade';
+import { InfoContext } from '../../../providers';
+import AddIcon from '@mui/icons-material/Add';
 
 const drawerWidth = 240;
 
@@ -25,28 +25,33 @@ const DrawerHeader = styled.div`
   padding: 8px 16px 8px 18px;
 `;
 
-const SideBar = ({ open, handleDrawerClose }) => {
-  const { subjects, dispatch } = useContext(InfoContexts);
+interface Props {
+  open: boolean;
+  handleDrawerClose: () => void;
+}
 
-  const onClickSubject = (index) => {
-    dispatch({ type: "CHANGE_SUBJECT", subject: index });
+const SideBar = ({ open, handleDrawerClose }: Props) => {
+  const { subjects, dispatch } = useContext(InfoContext);
+
+  const onClickSubject = (index: number) => {
+    dispatch({ type: 'CHANGE_SUBJECT', subject: index });
     handleDrawerClose();
   };
 
   const onClickAddSubject = () => {
-    dispatch({ type: "CREATE_NEW_SUBJECT" });
+    dispatch({ type: 'CREATE_NEW_SUBJECT' });
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
-            boxSizing: "border-box",
+            boxSizing: 'border-box',
           },
         }}
         variant="persistent"
@@ -62,11 +67,7 @@ const SideBar = ({ open, handleDrawerClose }) => {
         <Divider />
         <List>
           {subjects.map((subject, index) => (
-            <ListItem
-              key={subject.name}
-              disablePadding
-              onClick={() => onClickSubject(index)}
-            >
+            <ListItem key={subject.name} disablePadding onClick={() => onClickSubject(index)}>
               <ListItemButton>
                 <ListItemIcon>
                   <GradeIcon />
@@ -75,7 +76,7 @@ const SideBar = ({ open, handleDrawerClose }) => {
               </ListItemButton>
             </ListItem>
           ))}
-          <ListItem style={{ justifyContent: "center" }}>
+          <ListItem style={{ justifyContent: 'center' }}>
             <ListItemIcon>
               <ListItemButton onClick={onClickAddSubject}>
                 <AddIcon />

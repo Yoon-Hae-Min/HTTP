@@ -11,7 +11,13 @@ interface Context extends GlobalState {
   setIsSynchronization: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InfoContext = createContext<Context | null>(null);
+export const InfoContext = createContext<Context>({
+  dispatch: () => undefined,
+  isSynchronization: false,
+  setIsSynchronization: () => undefined,
+  selectedSubject: 0,
+  subjects: [],
+});
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
