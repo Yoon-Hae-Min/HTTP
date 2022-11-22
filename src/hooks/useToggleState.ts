@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-const useToggleState = (initialState) => {
+const useToggleState = (initialState: boolean) => {
   const [open, setOpen] = useState(initialState ?? false);
 
   const toggle = () => {
