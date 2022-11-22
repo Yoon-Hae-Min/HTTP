@@ -1,5 +1,4 @@
-
 interface SubjectInfo {
-    name: string,
-    numberOfTeams: number,
+  name: string;
+  numberOfTeams: number;
 }

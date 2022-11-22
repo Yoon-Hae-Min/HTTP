@@ -1,7 +1,6 @@
-const GradesCombineWeights = (
-  student: Student,
-  weights: Weight[]
-): CombinedWeight[] => {
+import { CombinedWeight, Student, Weight } from '../types/common';
+
+const GradesCombineWeights = (student: Student, weights: Weight[]): CombinedWeight[] => {
   const gradesAndWeight: CombinedWeight[] = [];
   student.grades.map((grade, index) => {
     return gradesAndWeight.push({

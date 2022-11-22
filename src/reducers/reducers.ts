@@ -5,9 +5,10 @@ import { GlobalState } from '../types/common';
 import GradesCombineWeights from '../utils/GradesCombineWeights';
 import StudentRating from '../utils/StudentRating';
 
-export const initialState = JSON.parse(localStorage.getItem('data') || '') ?? exportData;
+export const initialState: GlobalState =
+  JSON.parse(localStorage.getItem('data') || '') ?? exportData;
 
-export const initialSynchronization =
+export const initialSynchronization: boolean =
   JSON.parse(localStorage.getItem('isSynchronization') || '') ?? true;
 // {
 //   subjects: [
