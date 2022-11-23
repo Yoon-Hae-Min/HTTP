@@ -1,13 +1,20 @@
-import { Divider, Grid, TextField } from "@mui/material";
-import produce from "immer";
-import React from "react";
+import { Divider, Grid, TextField } from '@mui/material';
+import React, { SetStateAction, Dispatch, ChangeEvent } from 'react';
+import { SubjectInfo } from '../../../types/Setting';
 
-const SettingSubject = ({ subjectInfo, setSubjectInfo }) => {
-  const onChangeSubject = (event) => {
+const SettingSubject = ({
+  subjectInfo,
+  setSubjectInfo,
+}: {
+  subjectInfo: SubjectInfo;
+  setSubjectInfo: Dispatch<SetStateAction<SubjectInfo>>;
+}) => {
+  const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setSubjectInfo((pre) => {
-      return produce(pre, (draft) => {
-        draft[event.target.name] = event.target.value;
-      });
+      return {
+        ...pre,
+        [event.target.name as keyof SubjectInfo]: event.target.value,
+      };
     });
   };
 
@@ -19,7 +26,7 @@ const SettingSubject = ({ subjectInfo, setSubjectInfo }) => {
             fullWidth
             label="과목명"
             inputProps={{
-              name: "name",
+              name: 'name',
             }}
             variant="outlined"
             value={subjectInfo.name}
@@ -34,9 +41,9 @@ const SettingSubject = ({ subjectInfo, setSubjectInfo }) => {
             value={subjectInfo.numberOfTeams}
             type="number"
             inputProps={{
-              name: "numberOfTeams",
-              inputMode: "numeric",
-              pattern: "[0-9]*",
+              name: 'numberOfTeams',
+              inputMode: 'numeric',
+              pattern: '[0-9]*',
             }}
             onChange={onChangeSubject}
           />

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
-const useToggleState = (initialState: boolean) => {
-  const [open, setOpen] = useState(initialState ?? false);
+interface Toggle {
+  (initialState?: boolean): [boolean, React.Dispatch<React.SetStateAction<boolean>>, () => void];
+}
+
+const useToggleState: Toggle = (initialState) => {
+  const [open, setOpen] = useState<boolean>(initialState ?? false);
 
   const toggle = () => {
     setOpen((pre) => !pre);

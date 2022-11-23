@@ -1,4 +1,3 @@
-interface SubjectInfo {
-  name: string;
-  numberOfTeams: number;
-}
+import { Subject } from './common';
+
+export type SubjectInfo = Pick<Subject, 'name' | 'numberOfTeams'>;
