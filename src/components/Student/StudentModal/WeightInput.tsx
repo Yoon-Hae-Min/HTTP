@@ -1,27 +1,31 @@
-import { Divider, ListItem, MenuItem, Select, Typography } from "@mui/material";
-import React from "react";
+import { Divider, ListItem, MenuItem, Select, Typography, SelectChangeEvent } from '@mui/material';
+import React from 'react';
+import { Weight } from '../../../types/common';
+import { Grade } from '../../../types/StudentList';
 
-const WeightInput = ({ weight, value, onChange }) => {
+interface WeightInputProps {
+  weight: Weight;
+  value: Grade;
+  onChange: (event: SelectChangeEvent<Grade>) => void;
+}
+
+const WeightInput = ({ weight, value, onChange }: WeightInputProps) => {
   return (
     <>
       <ListItem>
         <Typography
           sx={{
             fontSize: 12,
-            width: "50%",
-            fontWeight: "bold",
-            margin: "5px",
+            width: '50%',
+            fontWeight: 'bold',
+            margin: '5px',
           }}
           color="text.secondary"
         >
           {weight.name}
         </Typography>
 
-        <Select
-          id="demo-simple-select-filled"
-          value={value}
-          onChange={onChange}
-        >
+        <Select id="demo-simple-select-filled" value={value} onChange={onChange}>
           <MenuItem value="A+">A+</MenuItem>
           <MenuItem value="A">A</MenuItem>
           <MenuItem value="B+">B+</MenuItem>

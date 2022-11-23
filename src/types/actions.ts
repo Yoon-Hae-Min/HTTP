@@ -1,4 +1,5 @@
 import { Student, Subject, Team, Weight } from './common';
+import { SubjectInfo } from './Setting';
 
 interface CreateNewStudentAction {
   type: 'CREATE_NEW_STUDENT';

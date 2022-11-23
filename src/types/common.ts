@@ -1,5 +1,7 @@
+import { Grade } from './StudentList';
+
 export interface Student {
-  grades: string[];
+  grades: Grade[];
   name: string;
   studentId: string;
   sumWeight?: number;

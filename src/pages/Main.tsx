@@ -7,6 +7,7 @@ import TabTitle from '../components/Commom/TabTitle';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 import { InfoContext } from '../providers';
 import TabPanel from '../components/Commom/TabPanel';
+import Setting from './Setting';
 
 function Main() {
   const { subjects, selectedSubject } = useContext(InfoContext);
