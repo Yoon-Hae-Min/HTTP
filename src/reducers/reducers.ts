@@ -5,11 +5,12 @@ import { GlobalState } from '../types/common';
 import GradesCombineWeights from '../utils/GradesCombineWeights';
 import StudentRating from '../utils/StudentRating';
 
-export const initialState: GlobalState =
-  JSON.parse(localStorage.getItem('data') || '') ?? exportData;
-
-export const initialSynchronization: boolean =
-  JSON.parse(localStorage.getItem('isSynchronization') || '') ?? true;
+export const initialState: GlobalState = JSON.parse(
+  localStorage.getItem('data') ?? JSON.stringify(exportData)
+);
+export const initialSynchronization: boolean = JSON.parse(
+  localStorage.getItem('isSynchronization') ?? 'true'
+);
 // {
 //   subjects: [
 //     {
@@ -54,7 +55,7 @@ const reducer = (state: GlobalState, action: Actions) => {
         draft.subjects.splice(draft.selectedSubject, 1);
         draft.selectedSubject = draft.subjects.length - 1;
       });
-    case 'CREATE_NEW_TEAM': //변경필요
+    case 'CREATE_NEW_TEAMS': //변경필요
       return produce(state, (draft) => {
         draft.subjects[draft.selectedSubject].teams = action.teams;
       });

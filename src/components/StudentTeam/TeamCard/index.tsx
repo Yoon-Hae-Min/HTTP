@@ -6,8 +6,14 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Card, CardContent, Grid } from '@mui/material';
+import { Team } from '../../../types/common';
 
-export default function TeamCard({ index, team }) {
+interface TeamCardProps {
+  index: number;
+  team: Team;
+}
+
+export default function TeamCard({ index, team }: TeamCardProps) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -15,14 +21,17 @@ export default function TeamCard({ index, team }) {
           {index + 1}조 ({Math.floor(team.sumWeight)})
         </Typography>
         <List sx={{ width: '100%', maxWidth: 360 }}>
-          {team.member.map((student) => {
+          {team.members.map((student) => {
             return (
-              <Grid container spacing={2}>
+              <Grid container spacing={2} key={student.studentId}>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
                     <Avatar>{student.name[0]}</Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={`${student.name} (${Math.floor(student.sumWeight)})`} secondary={student.studentId} />
+                  <ListItemText
+                    primary={`${student.name} (${Math.floor(student.sumWeight ?? 0)})`}
+                    secondary={student.studentId}
+                  />
                 </ListItem>
               </Grid>
             );

@@ -54,6 +54,11 @@ interface ToggleSynchronizationAction {
   type: 'TOGGLE_SYNCHRONIZATION';
 }
 
+interface CreateNewTeamsAction {
+  type: 'CREATE_NEW_TEAMS';
+  teams: Team[];
+}
+
 export type Actions =
   | CreateNewStudentAction
   | ChangeStudentAction
@@ -66,4 +71,5 @@ export type Actions =
   | ChangeSettingAction
   | CalculateStudentsWeightsAction
   | DeleteWeight
-  | ToggleSynchronizationAction;
+  | ToggleSynchronizationAction
+  | CreateNewTeamsAction;

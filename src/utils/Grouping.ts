@@ -86,14 +86,18 @@
 // };
 
 //팀 클래스
+
 class Team {
+  team: any;
+  teamWeight: any;
+  NumOfMem: any;
   constructor() {
     this.team = [];
     this.teamWeight = 0;
     this.NumOfMem = 0;
   }
 
-  addStudent(obj) {
+  addStudent(obj: any) {
     this.team.push(obj);
     this.teamWeight += obj.sumWeight;
     this.NumOfMem++;
@@ -105,34 +109,35 @@ class Team {
 
 //팀 최소힙 클래스
 class MinHeap {
+  teams: any;
   constructor() {
     this.teams = [];
   }
 
   //값을 서로 바꾸는 메소드
-  swap(index1, index2) {
-    let temp = this.teams[index1]; // items의 index1의 값을 temp(임시공간)에 담음
+  swap(index1: any, index2: any) {
+    const temp = this.teams[index1]; // items의 index1의 값을 temp(임시공간)에 담음
     this.teams[index1] = this.teams[index2]; // index1에 index2의 값을 저장
     this.teams[index2] = temp; // index2에 아까 index1의 값을 temp에 넣어놓은 값을 저장
   }
 
   //왼쪽 자식 인덱스 구하는 메소드
-  leftChildIndex(index) {
+  leftChildIndex(index: any) {
     return index * 2 + 1;
   }
 
   //오른쪽 자식 인덱스 구하는 메소드
-  rightChildIndex(index) {
+  rightChildIndex(index: any) {
     return index * 2 + 2;
   }
 
   //왼쪽 자식 노드 구하는 메소드
-  leftChild(index) {
+  leftChild(index: any) {
     return this.teams[this.leftChildIndex(index)];
   }
 
   //오른쪽 자식 노드 구하는 메소드
-  rightChild(index) {
+  rightChild(index: any) {
     return this.teams[this.rightChildIndex(index)];
   }
 
@@ -142,14 +147,14 @@ class MinHeap {
   }
 
   //최소힙 정렬하기
-  heaping(index) {
+  heaping(index: any) {
     if (this.leftChild(index) !== undefined) {
       if (this.rightChild(index) !== undefined) {
         if (
           this.teams[index].teamWeight > this.leftChild(index).teamWeight ||
           this.teams[index].teamWeight > this.rightChild(index).teamWeight
         ) {
-          let smallerIndex =
+          const smallerIndex =
             this.leftChild(index).teamWeight < this.rightChild(index).teamWeight
               ? this.leftChildIndex(index)
               : this.rightChildIndex(index);
@@ -158,7 +163,7 @@ class MinHeap {
         }
       } else {
         if (this.teams[index].teamWeight > this.leftChild(index).teamWeight) {
-          let smallerIndex = this.leftChildIndex(index);
+          const smallerIndex = this.leftChildIndex(index);
           this.swap(index, smallerIndex);
           this.heaping(smallerIndex);
         }
@@ -167,12 +172,12 @@ class MinHeap {
   }
 
   //팀 추가
-  addTeam(obj) {
+  addTeam(obj: any) {
     this.teams.unshift(obj);
   }
 
   //팀 스코어 가장 작은 팀에 학생 추가
-  addStu(obj) {
+  addStu(obj: any) {
     this.teams[0].addStudent(obj);
   }
 
@@ -183,7 +188,9 @@ class MinHeap {
 }
 
 class Grouping {
-  constructor(StudentList) {
+  StudentList: any;
+  teamWeight: any;
+  constructor(StudentList: any) {
     this.StudentList = StudentList;
     this.teamWeight = [];
   }
@@ -191,32 +198,30 @@ class Grouping {
     return this.teamWeight;
   }
   getTeams() {
-    let teamlist = [];
+    const teamlist = [];
 
-    let sortStudents = this.StudentList.data.sort(
-      (a, b) => a.sumWeight - b.sumWeight
-    ); //배열 정렬
+    const sortStudents = this.StudentList.data.sort((a: any, b: any) => a.sumWeight - b.sumWeight); //배열 정렬
 
     //만들려고 하는 팀 수보다 학생수가 적으면 팀을 만들수 없어서
     //에러 처리를 해주었습니다. 콘솔이 아니라 팝업창을 띄운다던가 하면 더 좋을듯합니다
-    let teamCount = this.StudentList.teamCount;
-    if (teamCount < sortStudents.lenght) console.log("팀을 만들 수 없습니다");
+    const teamCount = this.StudentList.teamCount;
+    if (teamCount < sortStudents.lenght) console.log('팀을 만들 수 없습니다');
 
-    let TeamHeap = new MinHeap();
+    const TeamHeap = new MinHeap();
     let overTeam = sortStudents.length % teamCount; //학생 수가 안맞을 때, 학생이 1명 더 많은 팀 수
-    let NumOfMember = parseInt(sortStudents.length / teamCount); //팀당 학생 수
+    const NumOfMember = sortStudents.length / teamCount; //팀당 학생 수
     //성적 가장 높은 학생 한명씩 넣기
 
-    let tempteamlist = [];
+    const tempteamlist = [];
     for (let i = 0; i < teamCount; i++) {
-      let team = new Team();
+      const team = new Team();
       team.addStudent(sortStudents.pop());
       tempteamlist.unshift(team);
       TeamHeap.addTeam(team);
     }
     //남은 학생 차례로 넣기
-    let len = sortStudents.length;
-    for (var i = 0; i < len; i++) {
+    const len = sortStudents.length;
+    for (let i = 0; i < len; i++) {
       if (overTeam > 0) {
         if (TeamHeap.teams[0].NumOfMem === NumOfMember + 1) {
           TeamHeap.poll();
