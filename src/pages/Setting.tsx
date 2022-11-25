@@ -6,6 +6,7 @@ import SettingSubject from '../components/Setting/SettingSubject';
 import SettingWeightTable from '../components/Setting/SettingWeightTable';
 import useToggleState from '../hooks/useToggleState';
 import { InfoContext } from '../providers';
+import { Weight } from '../types/common';
 import { SubjectInfo } from '../types/Setting';
 
 const Setting = () => {
@@ -15,7 +16,7 @@ const Setting = () => {
     name: subjects[selectedSubject].name,
     numberOfTeams: subjects[selectedSubject].numberOfTeams,
   });
-  const [weights, setWeights] = useState(subjects[selectedSubject].weights);
+  const [weights, setWeights] = useState<Weight[]>(subjects[selectedSubject].weights);
   const [deletedIndex, setDeletedIndex] = useState<number[]>([]);
 
   const [openSnackBar, , toggleSnackBar] = useToggleState(false);

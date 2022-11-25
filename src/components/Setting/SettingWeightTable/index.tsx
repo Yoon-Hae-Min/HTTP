@@ -25,7 +25,13 @@ export default function SettingWeightTable({ weights, setWeights, setDeletedInde
     index: number
   ) => {
     setWeights((pre) => {
-      return [{ ...pre[index], [event.target.name as keyof Weight]: event.target.value }, ...pre];
+      return produce(pre, (draft) => {
+        if (event.target.name === 'name') {
+          draft[index][event.target.name] = event.target.value;
+        } else if (event.target.name === 'value') {
+          draft[index][event.target.name] = parseInt(event.target.value);
+        }
+      });
     });
   };
 
@@ -52,6 +58,7 @@ export default function SettingWeightTable({ weights, setWeights, setDeletedInde
       });
     });
   };
+
   const onClickAllDelete = () => {
     const result = window.confirm('모두 삭제 하시겠습니까?');
     if (!result) {
@@ -64,8 +71,8 @@ export default function SettingWeightTable({ weights, setWeights, setDeletedInde
         draft.splice(0);
       });
     });
-    const arr = Array.from({ length: lastIndex }, (v, i) => i);
     setDeletedIndex((pre) => {
+      const arr = Array.from({ length: lastIndex }, (v, i) => i);
       return produce(pre, (draft) => {
         draft = arr;
       });
