@@ -6,17 +6,23 @@ import StudentTable from '../components/Student/StudentTable';
 import { InfoContext } from '../providers';
 import AddIcon from '@mui/icons-material/Add';
 import useToggleState from '../hooks/useToggleState';
+import useSubject from '../hooks/useSubject';
 
 const StudentList = () => {
-  const { subjects, selectedSubject } = useContext(InfoContext);
+  const { currentSubject } = useSubject();
   const [open, , toggleModal] = useToggleState();
   const [editIndex, setEditIndex] = useState<number>(0);
 
+  const handleCloseModal = () => {
+    toggleModal();
+    setEditIndex(0);
+  };
+
   return (
     <>
-      <StudentModal open={open} handleClose={toggleModal} editIndex={editIndex} />
+      <StudentModal open={open} handleCloseModal={handleCloseModal} editIndex={editIndex} />
       <StudentTable
-        studentData={subjects[selectedSubject].students}
+        studentData={currentSubject.students}
         setEditIndex={setEditIndex}
         toggleModal={toggleModal}
       />

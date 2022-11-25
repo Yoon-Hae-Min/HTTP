@@ -16,6 +16,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import GradeIcon from '@mui/icons-material/Grade';
 import { InfoContext } from '../../../providers';
 import AddIcon from '@mui/icons-material/Add';
+import useSubject from '../../../hooks/useSubject';
 
 const drawerWidth = 240;
 
@@ -31,7 +32,7 @@ interface Props {
 }
 
 const SideBar = ({ open, handleDrawerClose }: Props) => {
-  const { subjects, dispatch } = useContext(InfoContext);
+  const { allSubject, dispatch } = useSubject();
 
   const onClickSubject = (index: number) => {
     dispatch({ type: 'CHANGE_SUBJECT', subject: index });
@@ -66,7 +67,7 @@ const SideBar = ({ open, handleDrawerClose }: Props) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {subjects.map((subject, index) => (
+          {allSubject.map((subject, index) => (
             <ListItem key={subject.name} disablePadding onClick={() => onClickSubject(index)}>
               <ListItemButton>
                 <ListItemIcon>

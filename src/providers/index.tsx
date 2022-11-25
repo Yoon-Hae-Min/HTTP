@@ -5,18 +5,23 @@ import reducer, { initialState, initialSynchronization } from '../reducers/reduc
 import { Actions } from '../types/actions';
 import { GlobalState } from '../types/common';
 
-interface Context extends GlobalState {
+interface Info extends GlobalState {
   dispatch: Dispatch<Actions>;
+}
+
+export const InfoContext = createContext<Info>({
+  dispatch: () => undefined,
+  selectedSubject: 0,
+  subjects: [],
+});
+
+interface Synchronization {
   isSynchronization: boolean;
   setIsSynchronization: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-export const InfoContext = createContext<Context>({
-  dispatch: () => undefined,
+export const SynchronizationContext = createContext<Synchronization>({
   isSynchronization: false,
   setIsSynchronization: () => undefined,
-  selectedSubject: 0,
-  subjects: [],
 });
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -26,8 +31,10 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     isSynchronization && localStorage.setItem('data', JSON.stringify(state));
   }, [isSynchronization, state]);
   return (
-    <InfoContext.Provider value={{ ...state, dispatch, isSynchronization, setIsSynchronization }}>
-      {children}
+    <InfoContext.Provider value={{ ...state, dispatch }}>
+      <SynchronizationContext.Provider value={{ isSynchronization, setIsSynchronization }}>
+        {children}
+      </SynchronizationContext.Provider>
     </InfoContext.Provider>
   );
 };

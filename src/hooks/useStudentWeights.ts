@@ -1,10 +1,10 @@
-import { useContext } from 'react';
-import { InfoContext } from '../providers';
 import { Student } from '../types/common';
+import useSubject from './useSubject';
 
 const useStudentWeights = (student: Student) => {
-  const { subjects, selectedSubject } = useContext(InfoContext);
-  const weights = subjects[selectedSubject].weights;
+  const { currentSubject } = useSubject();
+
+  const weights = currentSubject.weights;
   const studentWeight = [
     ...weights.map((weight, index) => ({
       ...weight,

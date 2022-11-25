@@ -2,8 +2,9 @@ import { Button, Modal, Typography, SelectChangeEvent } from '@mui/material';
 import { Box } from '@mui/system';
 import produce from 'immer';
 import React, { useContext, ChangeEvent, SyntheticEvent } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
+import useSubject from '../../../hooks/useSubject';
 import { InfoContext } from '../../../providers';
 import { Student } from '../../../types/common';
 import { EditStudent, Grade } from '../../../types/StudentList';
@@ -20,12 +21,12 @@ const initialState = {
 
 interface ModalProps {
   open: boolean;
-  handleClose: () => void;
+  handleCloseModal: () => void;
   editIndex: number;
 }
 
-const StudentModal = ({ open, handleClose, editIndex }: ModalProps) => {
-  const { subjects, selectedSubject, dispatch } = useContext(InfoContext);
+const StudentModal = ({ open, handleCloseModal, editIndex }: ModalProps) => {
+  const { currentSubject, dispatch } = useSubject();
   const [student, setStudent] =
     useState<Pick<Student, 'name' | 'grades' | 'studentId'>>(initialState);
 
@@ -34,23 +35,23 @@ const StudentModal = ({ open, handleClose, editIndex }: ModalProps) => {
       event.preventDefault();
       const formattedStudent = {
         ...student,
-        sumWeight: StudentRating(GradesCombineWeights(student, subjects[selectedSubject].weights)),
+        sumWeight: StudentRating(GradesCombineWeights(student, currentSubject.weights)),
       };
       dispatch({
         type: 'CHANGE_STUDENT',
         index: editIndex - 1,
         student: formattedStudent,
       });
-      handleClose();
+      handleCloseModal();
     },
     Save: (event: SyntheticEvent) => {
       event.preventDefault();
       const formattedStudent = {
         ...student,
-        sumWeight: StudentRating(GradesCombineWeights(student, subjects[selectedSubject].weights)),
+        sumWeight: StudentRating(GradesCombineWeights(student, currentSubject.weights)),
       };
       dispatch({ type: 'CREATE_NEW_STUDENT', student: formattedStudent });
-      handleClose();
+      handleCloseModal();
     },
   };
 
@@ -59,7 +60,7 @@ const StudentModal = ({ open, handleClose, editIndex }: ModalProps) => {
       type: 'DELETE_STUDENT',
       index: editIndex - 1,
     });
-    handleClose();
+    handleCloseModal();
   };
 
   const onChangeSelect = (event: SelectChangeEvent<Grade>, index: number) => {
@@ -79,21 +80,20 @@ const StudentModal = ({ open, handleClose, editIndex }: ModalProps) => {
     });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (editIndex !== 0) {
-      setStudent({ ...subjects[selectedSubject].students[editIndex - 1] });
-      return setStudent({ name: '', grades: [], studentId: '' });
+      setStudent({ ...currentSubject.students[editIndex - 1] });
     } else {
       setStudent({
         name: '',
         studentId: '',
-        grades: Array.from({ length: subjects[selectedSubject].weights.length }, () => 'B+'),
+        grades: Array.from({ length: currentSubject.weights.length }, () => 'B+'),
       });
     }
-  }, [editIndex, selectedSubject, subjects]);
+  }, [editIndex]);
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleCloseModal}>
       <Box
         width="800px"
         sx={{
@@ -113,7 +113,7 @@ const StudentModal = ({ open, handleClose, editIndex }: ModalProps) => {
           <StudentInfo onChangeText={onChangeText} student={student} />
           <SubjectInfo
             student={student}
-            currentSubject={subjects[selectedSubject]}
+            currentSubject={currentSubject}
             onChangeSelect={onChangeSelect}
           />
           <Button

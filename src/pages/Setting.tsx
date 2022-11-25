@@ -4,19 +4,20 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import SettingSubject from '../components/Setting/SettingSubject';
 import SettingWeightTable from '../components/Setting/SettingWeightTable';
+import useSubject from '../hooks/useSubject';
 import useToggleState from '../hooks/useToggleState';
 import { InfoContext } from '../providers';
 import { Weight } from '../types/common';
 import { SubjectInfo } from '../types/Setting';
 
 const Setting = () => {
-  const { selectedSubject, subjects, dispatch } = useContext(InfoContext);
+  const { currentSubject, allSubject, dispatch } = useSubject();
 
   const [subjectInfo, setSubjectInfo] = useState<SubjectInfo>({
-    name: subjects[selectedSubject].name,
-    numberOfTeams: subjects[selectedSubject].numberOfTeams,
+    name: currentSubject.name,
+    numberOfTeams: currentSubject.numberOfTeams,
   });
-  const [weights, setWeights] = useState<Weight[]>(subjects[selectedSubject].weights);
+  const [weights, setWeights] = useState<Weight[]>(currentSubject.weights);
   const [deletedIndex, setDeletedIndex] = useState<number[]>([]);
 
   const [openSnackBar, , toggleSnackBar] = useToggleState(false);
@@ -41,11 +42,11 @@ const Setting = () => {
 
   useEffect(() => {
     setSubjectInfo({
-      name: subjects[selectedSubject].name,
-      numberOfTeams: subjects[selectedSubject].numberOfTeams,
+      name: currentSubject.name,
+      numberOfTeams: currentSubject.numberOfTeams,
     });
-    setWeights(subjects[selectedSubject].weights);
-  }, [selectedSubject, subjects]);
+    setWeights(currentSubject.weights);
+  }, [currentSubject]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -60,7 +61,7 @@ const Setting = () => {
         <Button variant="contained" type="submit" sx={{ marginRight: '30px' }}>
           저장하기
         </Button>
-        {subjects.length > 1 && (
+        {allSubject.length > 1 && (
           <Button variant="contained" color="error" onClick={onClickDelete}>
             과목 삭제하기
           </Button>

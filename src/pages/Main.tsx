@@ -10,9 +10,10 @@ import TabPanel from '../components/Commom/TabPanel';
 import Setting from './Setting';
 import StudentList from './StudentList';
 import StudentTeam from './StudentTeam';
+import useSubject from '../hooks/useSubject';
 
 function Main() {
-  const { subjects, selectedSubject } = useContext(InfoContext);
+  const { currentSubject } = useSubject();
   const [value, setValue] = useState<number>(1);
   const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: number): void => {
     setValue(newValue);
@@ -21,7 +22,7 @@ function Main() {
     <>
       <Navigation />
       <Container maxWidth="lg">
-        <TabTitle>{subjects[selectedSubject].name}</TabTitle>
+        <TabTitle>{currentSubject.name}</TabTitle>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs onChange={handleChange} aria-label="lab API tabs example" value={value}>

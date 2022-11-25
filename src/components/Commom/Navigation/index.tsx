@@ -11,11 +11,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SideBar from '../SideBar';
 import { useState } from 'react';
-import { useContext } from 'react';
-import { InfoContext } from '../../../providers';
+import useSynchronization from '../../../hooks/useSynchronization';
 
 const Navigation = () => {
-  const { dispatch, isSynchronization, setIsSynchronization } = useContext(InfoContext);
+  const { isSynchronization, setSynchronize, setUnSynchronize } = useSynchronization();
   const [open, setOpen] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -26,10 +25,7 @@ const Navigation = () => {
   };
 
   const toggleSync = () => {
-    dispatch({
-      type: 'TOGGLE_SYNCHRONIZATION',
-    });
-    setIsSynchronization((pre) => !pre);
+    isSynchronization ? setUnSynchronize() : setSynchronize();
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -87,15 +87,7 @@ const reducer = (state: GlobalState, action: Actions) => {
           student.grades.splice(action.index, 1)
         );
       });
-    case 'TOGGLE_SYNCHRONIZATION':
-      return produce(state, (draft) => {
-        if (localStorage.getItem('isSynchronization') === 'true') {
-          localStorage.removeItem('data');
-          localStorage.setItem('isSynchronization', 'false');
-        } else {
-          localStorage.setItem('isSynchronization', 'true');
-        }
-      });
+
     default:
       throw new Error("Doesn't have action type");
   }
