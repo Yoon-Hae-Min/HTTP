@@ -1,7 +1,7 @@
 import { Button, Modal, Typography, SelectChangeEvent } from '@mui/material';
 import { Box } from '@mui/system';
 import produce from 'immer';
-import React, { useContext, ChangeEvent, SyntheticEvent } from 'react';
+import React, { useContext, ChangeEvent, SyntheticEvent, useMemo, useCallback } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
 import useSubject from '../../../hooks/useSubject';
@@ -43,6 +43,7 @@ const StudentModal = ({ open, handleCloseModal, editIndex }: ModalProps) => {
         student: formattedStudent,
       });
       handleCloseModal();
+      console.log('edit');
     },
     Save: (event: SyntheticEvent) => {
       event.preventDefault();
@@ -52,33 +53,34 @@ const StudentModal = ({ open, handleCloseModal, editIndex }: ModalProps) => {
       };
       dispatch({ type: 'CREATE_NEW_STUDENT', student: formattedStudent });
       handleCloseModal();
+      console.log('save');
     },
   };
 
-  const onClickDelete = () => {
+  const onClickDelete = useCallback(() => {
     dispatch({
       type: 'DELETE_STUDENT',
       index: editIndex - 1,
     });
     handleCloseModal();
-  };
+  }, []);
 
-  const onChangeSelect = (event: SelectChangeEvent<Grade>, index: number) => {
+  const onChangeSelect = useCallback((event: SelectChangeEvent<Grade>, index: number) => {
     setStudent((pre) => {
       return produce(pre, (draft) => {
         draft.grades[index] = event.target.value as Grade;
       });
     });
-  };
+  }, []);
 
-  const onChangeText = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const onChangeText = useCallback((event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setStudent((pre) => {
       return {
         ...pre,
         [event.target.name]: event.target.value,
       };
     });
-  };
+  }, []);
 
   useLayoutEffect(() => {
     if (editIndex !== 0) {
@@ -91,7 +93,8 @@ const StudentModal = ({ open, handleCloseModal, editIndex }: ModalProps) => {
       });
     }
   }, [editIndex]);
-
+  console.log(student);
+  console.log(editIndex);
   return (
     <Modal open={open} onClose={handleCloseModal}>
       <Box
@@ -109,7 +112,7 @@ const StudentModal = ({ open, handleCloseModal, editIndex }: ModalProps) => {
         <Typography id="modal-modal-title" variant="h4" component="h2">
           학생추가
         </Typography>
-        <form onSubmit={onSubmit[editIndex === 0 ? 'Edit' : 'Save']}>
+        <form onSubmit={onSubmit[editIndex === 0 ? 'Save' : 'Edit']}>
           <StudentInfo onChangeText={onChangeText} student={student} />
           <SubjectInfo
             student={student}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Container } from '@mui/material';
 import { useContext } from 'react';
 import Navigation from '../components/Commom/Navigation';
@@ -15,9 +15,12 @@ import useSubject from '../hooks/useSubject';
 function Main() {
   const { currentSubject } = useSubject();
   const [value, setValue] = useState<number>(1);
-  const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: number): void => {
-    setValue(newValue);
-  };
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent<Element, Event>, newValue: number): void => {
+      setValue(newValue);
+    },
+    []
+  );
   return (
     <>
       <Navigation />

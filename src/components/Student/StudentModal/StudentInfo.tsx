@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, memo } from 'react';
 import { TextField } from '@mui/material';
 import { Student } from '../../../types/common';
 
@@ -32,4 +32,4 @@ const StudentInfo = ({ onChangeText, student }: StudentInfoProps) => {
   );
 };
 
-export default StudentInfo;
+export default memo(StudentInfo);

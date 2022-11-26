@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Divider, List, ListItem, Typography, SelectChangeEvent } from '@mui/material';
 import WeightInput from './WeightInput';
 import { Student, Subject } from '../../../types/common';
@@ -53,4 +53,4 @@ const SubjectInfo = ({ student, currentSubject, onChangeSelect }: SubjectInfoPro
   );
 };
 
-export default SubjectInfo;
+export default memo(SubjectInfo);

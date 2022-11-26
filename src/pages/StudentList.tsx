@@ -1,5 +1,5 @@
 import { Fab } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useContext } from 'react';
 import StudentModal from '../components/Student/StudentModal';
 import StudentTable from '../components/Student/StudentTable';
@@ -13,10 +13,10 @@ const StudentList = () => {
   const [open, , toggleModal] = useToggleState();
   const [editIndex, setEditIndex] = useState<number>(0);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     toggleModal();
     setEditIndex(0);
-  };
+  }, []);
 
   return (
     <>

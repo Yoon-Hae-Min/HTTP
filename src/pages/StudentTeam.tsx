@@ -1,5 +1,5 @@
 import { Button, Grid } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import TeamCard from '../components/StudentTeam/TeamCard';
 import TeamCardGrid from '../components/StudentTeam/TeamCardGrid';
 import useSubject from '../hooks/useSubject';
@@ -10,7 +10,7 @@ import Grouping from '../utils/Grouping';
 const StudentTeam = () => {
   const { currentSubject, dispatch } = useSubject();
 
-  const onClickMakeTeam = () => {
+  const onClickMakeTeam = useCallback(() => {
     if (currentSubject.numberOfTeams > currentSubject.students.length) {
       alert('학생 수 보다 편성인원이 많습니다.');
       return;
@@ -27,8 +27,7 @@ const StudentTeam = () => {
       };
     });
     dispatch({ type: 'CREATE_NEW_TEAMS', teams: teams });
-  };
-  console.log(currentSubject.teams);
+  }, []);
   return (
     <>
       <TeamCardGrid>

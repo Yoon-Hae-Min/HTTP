@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, memo } from 'react';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -24,7 +24,7 @@ interface RowProps {
   toggleModal: () => void;
 }
 
-function Row({ student, setEditIndex, index, toggleModal }: RowProps) {
+const Row = ({ student, setEditIndex, index, toggleModal }: RowProps) => {
   const [open, setOpen] = useState(false);
   const studentWeight = useStudentWeights(student);
 
@@ -34,7 +34,7 @@ function Row({ student, setEditIndex, index, toggleModal }: RowProps) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -45,7 +45,7 @@ function Row({ student, setEditIndex, index, toggleModal }: RowProps) {
         <TableCell align="right">{student.studentId}</TableCell>
         <TableCell align="right">{student.sumWeight}</TableCell>
         <TableCell align="right" sx={{ width: '40px' }}>
-          <IconButton onClick={onClickEdit}>
+          <IconButton onClick={onClickEdit} name="student-edit-button">
             <EditIcon />
           </IconButton>
         </TableCell>
@@ -54,7 +54,7 @@ function Row({ student, setEditIndex, index, toggleModal }: RowProps) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 5 }}>
-              <Typography variant="h5" gutterBottom component="div" color="text.primary">
+              <Typography variant="h5" gutterBottom component="span" color="text.primary">
                 History
               </Typography>
               <Table size="small" aria-label="purchases">
@@ -81,9 +81,9 @@ function Row({ student, setEditIndex, index, toggleModal }: RowProps) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
-}
+};
 
 interface StudentTableProps {
   studentData: Student[];

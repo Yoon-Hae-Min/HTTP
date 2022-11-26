@@ -10,13 +10,14 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import styled from 'styled-components';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import GradeIcon from '@mui/icons-material/Grade';
 import { InfoContext } from '../../../providers';
 import AddIcon from '@mui/icons-material/Add';
 import useSubject from '../../../hooks/useSubject';
+import SubjectList from './SubjectList';
 
 const drawerWidth = 240;
 
@@ -34,14 +35,14 @@ interface Props {
 const SideBar = ({ open, handleDrawerClose }: Props) => {
   const { allSubject, dispatch } = useSubject();
 
-  const onClickSubject = (index: number) => {
+  const onClickSubject = useCallback((index: number) => {
     dispatch({ type: 'CHANGE_SUBJECT', subject: index });
     handleDrawerClose();
-  };
+  }, []);
 
-  const onClickAddSubject = () => {
+  const onClickAddSubject = useCallback(() => {
     dispatch({ type: 'CREATE_NEW_SUBJECT' });
-  };
+  }, []);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -68,14 +69,11 @@ const SideBar = ({ open, handleDrawerClose }: Props) => {
         <Divider />
         <List>
           {allSubject.map((subject, index) => (
-            <ListItem key={subject.name} disablePadding onClick={() => onClickSubject(index)}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <GradeIcon />
-                </ListItemIcon>
-                <ListItemText primary={subject.name} />
-              </ListItemButton>
-            </ListItem>
+            <SubjectList
+              subject={subject}
+              key={subject.name}
+              onClick={() => onClickSubject(index)}
+            />
           ))}
           <ListItem style={{ justifyContent: 'center' }}>
             <ListItemIcon>

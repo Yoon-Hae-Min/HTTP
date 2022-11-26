@@ -1,5 +1,5 @@
 import { Divider, Grid, TextField } from '@mui/material';
-import React, { SetStateAction, Dispatch, ChangeEvent } from 'react';
+import React, { SetStateAction, Dispatch, ChangeEvent, memo, useCallback } from 'react';
 import { SubjectInfo } from '../../../types/Setting';
 
 const SettingSubject = ({
@@ -9,14 +9,17 @@ const SettingSubject = ({
   subjectInfo: SubjectInfo;
   setSubjectInfo: Dispatch<SetStateAction<SubjectInfo>>;
 }) => {
-  const onChangeSubject = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setSubjectInfo((pre) => {
-      return {
-        ...pre,
-        [event.target.name as keyof SubjectInfo]: event.target.value,
-      };
-    });
-  };
+  const onChangeSubject = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setSubjectInfo((pre) => {
+        return {
+          ...pre,
+          [event.target.name as keyof SubjectInfo]: event.target.value,
+        };
+      });
+    },
+    []
+  );
 
   return (
     <>
@@ -54,4 +57,4 @@ const SettingSubject = ({
   );
 };
 
-export default SettingSubject;
+export default memo(SettingSubject);

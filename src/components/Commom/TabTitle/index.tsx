@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import * as Style from './index.styles';
 
 const TabTitle = ({ children }: { children: React.ReactNode }) => {
@@ -9,4 +9,4 @@ const TabTitle = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default TabTitle;
+export default memo(TabTitle);

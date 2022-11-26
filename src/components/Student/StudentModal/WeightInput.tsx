@@ -1,5 +1,5 @@
 import { Divider, ListItem, MenuItem, Select, Typography, SelectChangeEvent } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 import { Weight } from '../../../types/common';
 import { Grade } from '../../../types/StudentList';
 
@@ -42,4 +42,4 @@ const WeightInput = ({ weight, value, onChange }: WeightInputProps) => {
   );
 };
 
-export default WeightInput;
+export default memo(WeightInput);

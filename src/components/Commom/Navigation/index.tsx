@@ -10,23 +10,16 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SideBar from '../SideBar';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import useSynchronization from '../../../hooks/useSynchronization';
+import useToggleState from '../../../hooks/useToggleState';
 
 const Navigation = () => {
   const { isSynchronization, setSynchronize, setUnSynchronize } = useSynchronization();
-  const [open, setOpen] = useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const toggleSync = () => {
+  const [open, , toggleDrawer] = useToggleState();
+  const toggleSync = useCallback(() => {
     isSynchronization ? setUnSynchronize() : setSynchronize();
-  };
+  }, []);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
@@ -37,17 +30,11 @@ const Navigation = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={handleDrawerOpen}
+            onClick={toggleDrawer}
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1, fontWeight: 'bold' }}
-            component="div"
-          >
+          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1, fontWeight: 'bold' }}>
             HTTP
           </Typography>
           <FormControlLabel
@@ -62,7 +49,7 @@ const Navigation = () => {
           />
         </Toolbar>
       </AppBar>
-      <SideBar open={open} handleDrawerClose={handleDrawerClose} />
+      <SideBar open={open} handleDrawerClose={toggleDrawer} />
     </Box>
   );
 };

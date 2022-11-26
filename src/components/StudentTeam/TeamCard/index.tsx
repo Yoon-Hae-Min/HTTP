@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -13,7 +13,7 @@ interface TeamCardProps {
   team: Team;
 }
 
-export default function TeamCard({ index, team }: TeamCardProps) {
+const TeamCard = ({ index, team }: TeamCardProps) => {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -40,4 +40,6 @@ export default function TeamCard({ index, team }: TeamCardProps) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default memo(TeamCard);

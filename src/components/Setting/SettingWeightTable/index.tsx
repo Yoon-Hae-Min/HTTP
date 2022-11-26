@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -20,22 +20,22 @@ interface TableProps {
 type eventType = ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
 export default function SettingWeightTable({ weights, setWeights, setDeletedIndex }: TableProps) {
-  const onChangeWeight = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-    index: number
-  ) => {
-    setWeights((pre) => {
-      return produce(pre, (draft) => {
-        if (event.target.name === 'name') {
-          draft[index][event.target.name] = event.target.value;
-        } else if (event.target.name === 'value') {
-          draft[index][event.target.name] = parseInt(event.target.value);
-        }
+  const onChangeWeight = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, index: number) => {
+      setWeights((pre) => {
+        return produce(pre, (draft) => {
+          if (event.target.name === 'name') {
+            draft[index][event.target.name] = event.target.value;
+          } else if (event.target.name === 'value') {
+            draft[index][event.target.name] = parseInt(event.target.value);
+          }
+        });
       });
-    });
-  };
+    },
+    []
+  );
 
-  const onClickAddWeight = () => {
+  const onClickAddWeight = useCallback(() => {
     setWeights((pre) => {
       return produce(pre, (draft) => {
         draft.push({
@@ -44,22 +44,25 @@ export default function SettingWeightTable({ weights, setWeights, setDeletedInde
         });
       });
     });
-  };
+  }, []);
 
-  const onClickDelete = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
-    setWeights((pre) => {
-      return produce(pre, (draft) => {
-        draft.splice(index, 1);
+  const onClickDelete = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
+      setWeights((pre) => {
+        return produce(pre, (draft) => {
+          draft.splice(index, 1);
+        });
       });
-    });
-    setDeletedIndex((pre) => {
-      return produce(pre, (draft) => {
-        draft.push(index);
+      setDeletedIndex((pre) => {
+        return produce(pre, (draft) => {
+          draft.push(index);
+        });
       });
-    });
-  };
+    },
+    []
+  );
 
-  const onClickAllDelete = () => {
+  const onClickAllDelete = useCallback(() => {
     const result = window.confirm('모두 삭제 하시겠습니까?');
     if (!result) {
       return;
@@ -77,7 +80,7 @@ export default function SettingWeightTable({ weights, setWeights, setDeletedInde
         draft = arr;
       });
     });
-  };
+  }, []);
 
   return (
     <Box sx={{ width: '100%' }}>

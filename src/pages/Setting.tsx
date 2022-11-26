@@ -1,5 +1,5 @@
 import { Button, Snackbar } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import SettingSubject from '../components/Setting/SettingSubject';
@@ -22,7 +22,7 @@ const Setting = () => {
 
   const [openSnackBar, , toggleSnackBar] = useToggleState(false);
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((event) => {
     event.preventDefault();
     dispatch({
       type: 'CHANGE_SETTING',
@@ -32,13 +32,13 @@ const Setting = () => {
     });
     dispatch({ type: 'CALCULATE_STUDENTS_WEIGHTS' });
     toggleSnackBar();
-  };
+  }, []);
 
-  const onClickDelete = () => {
+  const onClickDelete = useCallback(() => {
     if (window.confirm(`해당 과목을 삭제하시겠습니까?`)) {
       dispatch({ type: 'DELETE_SUBJECT' });
     }
-  };
+  }, []);
 
   useEffect(() => {
     setSubjectInfo({
