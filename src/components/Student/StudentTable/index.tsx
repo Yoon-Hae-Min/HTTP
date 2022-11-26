@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, memo } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';

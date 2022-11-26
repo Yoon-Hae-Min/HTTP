@@ -1,12 +1,11 @@
 import { Button, Snackbar } from '@mui/material';
-import React, { useContext, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import SettingSubject from '../components/Setting/SettingSubject';
 import SettingWeightTable from '../components/Setting/SettingWeightTable';
 import useSubject from '../hooks/useSubject';
 import useToggleState from '../hooks/useToggleState';
-import { InfoContext } from '../providers';
 import { Weight } from '../types/common';
 import { SubjectInfo } from '../types/Setting';
 

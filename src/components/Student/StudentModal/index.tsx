@@ -1,13 +1,12 @@
 import { Button, Modal, Typography, SelectChangeEvent } from '@mui/material';
 import { Box } from '@mui/system';
 import produce from 'immer';
-import React, { useContext, ChangeEvent, SyntheticEvent, useMemo, useCallback } from 'react';
-import { useEffect, useLayoutEffect } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useCallback } from 'react';
+import { useLayoutEffect } from 'react';
 import { useState } from 'react';
 import useSubject from '../../../hooks/useSubject';
-import { InfoContext } from '../../../providers';
 import { Student } from '../../../types/common';
-import { EditStudent, Grade } from '../../../types/StudentList';
+import { Grade } from '../../../types/StudentList';
 import GradesCombineWeights from '../../../utils/GradesCombineWeights';
 import StudentRating from '../../../utils/StudentRating';
 import StudentInfo from './StudentInfo';

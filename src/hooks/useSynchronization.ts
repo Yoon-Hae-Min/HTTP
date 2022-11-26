@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { InfoContext, SynchronizationContext } from '../providers';
+import { SynchronizationContext } from '../providers';
 
 const useSynchronization = () => {
   const { isSynchronization, setIsSynchronization } = useContext(SynchronizationContext);

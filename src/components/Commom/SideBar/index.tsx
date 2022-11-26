@@ -10,11 +10,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import React, { useContext, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import GradeIcon from '@mui/icons-material/Grade';
-import { InfoContext } from '../../../providers';
 import AddIcon from '@mui/icons-material/Add';
 import useSubject from '../../../hooks/useSubject';
 import SubjectList from './SubjectList';

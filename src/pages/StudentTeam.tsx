@@ -1,10 +1,8 @@
 import { Button, Grid } from '@mui/material';
-import React, { useContext, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import TeamCard from '../components/StudentTeam/TeamCard';
 import TeamCardGrid from '../components/StudentTeam/TeamCardGrid';
 import useSubject from '../hooks/useSubject';
-import { InfoContext } from '../providers';
-import { Team } from '../types/common';
 import Grouping from '../utils/Grouping';
 
 const StudentTeam = () => {

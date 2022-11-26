@@ -1,11 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Container } from '@mui/material';
-import { useContext } from 'react';
 import Navigation from '../components/Commom/Navigation';
-import SubjectTabs from '../components/Commom/TabPanel';
 import TabTitle from '../components/Commom/TabTitle';
-import { Box, Tab, Tabs, Typography } from '@mui/material';
-import { InfoContext } from '../providers';
+import { Box, Tab, Tabs } from '@mui/material';
 import TabPanel from '../components/Commom/TabPanel';
 import Setting from './Setting';
 import StudentList from './StudentList';

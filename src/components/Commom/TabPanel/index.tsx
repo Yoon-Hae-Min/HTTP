@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import { Box, Tab, Tabs, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 
 interface TabPanelParams extends HTMLAttributes<HTMLInputElement> {
   children: React.ReactNode;

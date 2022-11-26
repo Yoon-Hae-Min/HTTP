@@ -19,8 +19,12 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "unused-imports"
     ],
     "rules": {
+        "unused-imports/no-unused-imports": "error"
     }
+
+    
 }

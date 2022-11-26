@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SideBar from '../SideBar';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import useSynchronization from '../../../hooks/useSynchronization';
 import useToggleState from '../../../hooks/useToggleState';
 

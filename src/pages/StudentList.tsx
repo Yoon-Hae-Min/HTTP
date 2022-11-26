@@ -1,9 +1,7 @@
 import { Fab } from '@mui/material';
-import React, { useEffect, useState, useCallback } from 'react';
-import { useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import StudentModal from '../components/Student/StudentModal';
 import StudentTable from '../components/Student/StudentTable';
-import { InfoContext } from '../providers';
 import AddIcon from '@mui/icons-material/Add';
 import useToggleState from '../hooks/useToggleState';
 import useSubject from '../hooks/useSubject';

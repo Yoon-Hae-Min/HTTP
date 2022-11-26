@@ -1,4 +1,4 @@
-import { Student, Subject, Team, Weight } from './common';
+import { Student, Team, Weight } from './common';
 import { SubjectInfo } from './Setting';
 
 interface CreateNewStudentAction {
