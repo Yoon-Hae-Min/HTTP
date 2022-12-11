@@ -18,6 +18,7 @@ function Main() {
     },
     []
   );
+
   return (
     <>
       <Navigation />
